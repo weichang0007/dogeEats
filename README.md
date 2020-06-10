@@ -1,4 +1,4 @@
-# dogeeats
+# DogeEats
 
 useful application.
 
