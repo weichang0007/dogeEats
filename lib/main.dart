@@ -1,31 +1,88 @@
+import 'package:dogeeats/bloc/blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:dogeeats/page/pages.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 
 void main() => runApp(DogeEatsApp());
 
 class DogeEatsApp extends StatelessWidget {
+  static final ThemeData theme = ThemeData.light().copyWith(
+    brightness: Brightness.light,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+    primaryColor: Colors.green,
+    textTheme: ThemeData.light().textTheme.apply(
+          bodyColor: Colors.black,
+          displayColor: Colors.black,
+        ),
+    appBarTheme: AppBarTheme(
+      color: Colors.white,
+      textTheme: TextTheme(
+        headline6: TextStyle(color: Colors.black, fontSize: 18),
+      ),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      fillColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey),
+      ),
+      border: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey),
+      ),
+    ),
+  );
+
+  final coustomerApp = MaterialApp(
+    title: 'DogeEats',
+    theme: theme,
+    onGenerateRoute: (settings) {
+      switch (settings.name) {
+        case '/':
+          return PageTransition(
+            duration: Duration(milliseconds: 500),
+            child: HomePage(),
+            type: PageTransitionType.fade,
+            settings: settings,
+          );
+          break;
+        case '/home':
+          return PageTransition(
+            duration: Duration(milliseconds: 500),
+            child: HomePage(),
+            type: PageTransitionType.fade,
+            settings: settings,
+          );
+          break;
+        case '/login':
+          return PageTransition(
+            duration: Duration(milliseconds: 500),
+            child: LoginPage(),
+            type: PageTransitionType.fade,
+            settings: settings,
+          );
+          break;
+        case '/register':
+          return PageTransition(
+            duration: Duration(milliseconds: 500),
+            child: RegisterPage(),
+            type: PageTransitionType.fade,
+            settings: settings,
+          );
+          break;
+        default:
+          return null;
+      }
+    },
+  );
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'DogeEats',
-      theme: ThemeData.light().copyWith(
-        brightness: Brightness.light,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        textTheme: ThemeData.light().textTheme.apply(
-              bodyColor: Colors.black,
-              displayColor: Colors.black,
-            ),
-        appBarTheme: AppBarTheme(
-          color: Colors.white,
-          textTheme: TextTheme(
-            headline6: TextStyle(color: Colors.black, fontSize: 18),
-          ),
-        ),
-      ),
-      routes: {
-        "/": (context) => HomePage(),
-        "/home": (context) => HomePage(),
-      },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LoginBloc>(create: (BuildContext context) => LoginBloc()),
+      ],
+      child: coustomerApp,
     );
   }
 }

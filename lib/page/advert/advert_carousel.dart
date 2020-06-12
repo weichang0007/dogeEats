@@ -1,10 +1,11 @@
-part of 'index_page.dart';
+part of 'advert_page.dart';
 
 class IndexCarousel extends StatefulWidget {
   @override
   State<IndexCarousel> createState() => _IndexCarouselState();
 }
 
+// TODO: 接入首頁廣告
 class _IndexCarouselState extends State<IndexCarousel> {
   final List<NetworkImage> _images = [
     NetworkImage("https://fakeimg.pl/1001"),

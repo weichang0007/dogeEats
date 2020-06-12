@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import './pages.dart';
+import '../pages.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -15,7 +15,7 @@ class HomeNavigation extends StatefulWidget {
 class _HomeNavigationState extends State<HomeNavigation> {
   final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
   final List<Widget> _pages = [
-    IndexPage(),
+    AdvertPage(),
     Center(),
     Center(),
     Center(),
@@ -38,6 +38,7 @@ class _HomeNavigationState extends State<HomeNavigation> {
       title: Text('帳戶'),
     ),
   ];
+  // TODO: 實作 AppBar
   final PreferredSizeWidget _appbar = AppBar(
     title: Text("送至: 這邊還沒寫"),
   );

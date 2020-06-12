@@ -1,2 +1,4 @@
-export './home_page.dart';
-export './index/index_page.dart';
+export './home/home_page.dart';
+export './advert/advert_page.dart';
+export './login/login_page.dart';
+export './register/register_page.dart';
