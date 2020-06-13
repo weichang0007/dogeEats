@@ -16,7 +16,7 @@ class _HomeNavigationState extends State<HomeNavigation> {
   final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
   final List<Widget> _pages = [
     AdvertPage(),
-    Center(),
+    ExplorationPage(),
     Center(),
     Center(),
   ];
