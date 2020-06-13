@@ -1,10 +1,24 @@
+import 'dart:io';
+
 import 'package:dogeeats/bloc/blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:dogeeats/page/pages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
-void main() => runApp(DogeEatsApp());
+void main() {
+  HttpOverrides.global = UnsafeHttpOverrides();
+  runApp(DogeEatsApp());
+}
+
+class UnsafeHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
 
 class DogeEatsApp extends StatelessWidget {
   static final ThemeData theme = ThemeData.light().copyWith(
