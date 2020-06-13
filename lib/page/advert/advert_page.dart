@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dogeeats/widget/restaurant_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,10 +11,13 @@ class AdvertPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: SingleChildScrollView(
-        child: Column(children: <Widget>[
-          IndexCarousel(),
-          IndexFavorite(),
-        ]),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            IndexCarousel(),
+            IndexFavorite(),
+          ],
+        ),
       ),
     );
   }

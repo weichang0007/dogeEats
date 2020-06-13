@@ -28,7 +28,7 @@ class _IndexCarouselState extends State<IndexCarousel> {
         );
       }).toList(),
       options: CarouselOptions(
-        height: 800.h,
+        height: 600.h,
         viewportFraction: 1,
         autoPlay: true,
         autoPlayInterval: Duration(seconds: 5),
@@ -43,7 +43,7 @@ class _IndexCarouselState extends State<IndexCarousel> {
       ),
     );
     return Container(
-      height: 800.h,
+      height: 600.h,
       padding: EdgeInsets.fromLTRB(0, 50.h, 0, 50.h),
       child: Stack(
         overflow: Overflow.clip,
