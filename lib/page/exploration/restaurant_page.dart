@@ -20,7 +20,6 @@ class RestaurantPage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Container(
-              color: Colors.blue,
               height: 1000.h,
               margin: EdgeInsets.fromLTRB(26.w, 20.h, 0, 0),
               alignment: Alignment.centerLeft,

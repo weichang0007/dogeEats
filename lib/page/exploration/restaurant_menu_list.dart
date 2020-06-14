@@ -11,7 +11,7 @@ class _IndexMenuState extends State<IndexMenu> {
     RestaurantMenu(
       url:
       "https://images.deliveryhero.io/image/fd-tw/LH/f7mo-hero.jpg?width=4000&height=1000",
-      name: "雞老爺",
+      name: "雞老爺1號餐",
       type: "\$.美式美食",
       price: "30",
       width: 1080.w,
@@ -20,7 +20,7 @@ class _IndexMenuState extends State<IndexMenu> {
     RestaurantMenu(
       url:
       "https://images.deliveryhero.io/image/fd-tw/LH/f7mo-hero.jpg?width=4000&height=1000",
-      name: "雞老爺",
+      name: "雞老爺2號餐",
       type: "\$.美式美食",
       price: "30",
       width: 1080.w,
@@ -29,7 +29,7 @@ class _IndexMenuState extends State<IndexMenu> {
     RestaurantMenu(
       url:
       "https://images.deliveryhero.io/image/fd-tw/LH/f7mo-hero.jpg?width=4000&height=1000",
-      name: "雞老爺",
+      name: "雞老爺3號餐",
       type: "\$.美式美食",
       price: "30",
       width: 1080.w,
@@ -38,15 +38,13 @@ class _IndexMenuState extends State<IndexMenu> {
     RestaurantMenu(
       url:
       "https://images.deliveryhero.io/image/fd-tw/LH/f7mo-hero.jpg?width=4000&height=1000",
-      name: "雞老爺",
+      name: "雞老爺4號餐",
       type: "\$.美式美食",
       price: "30",
       width: 1080.w,
       height: 300.h,
     ),
   ];
-
-
 
   @override
   Widget build(BuildContext context) {
