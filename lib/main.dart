@@ -84,6 +84,14 @@ class DogeEatsApp extends StatelessWidget {
             settings: settings,
           );
           break;
+        case '/restaurant':
+          return PageTransition(
+            duration: Duration(milliseconds: 500),
+            child: RestaurantPage(),
+            type: PageTransitionType.fade,
+            settings: settings,
+          );
+          break;
         default:
           return null;
       }
