@@ -45,8 +45,14 @@ class _HomeNavigationState extends State<HomeNavigation> {
   int _index = 0;
 
   void _screenInit(BuildContext context) {
-    ScreenUtil.init(context,
-        width: 1080, height: 1920, allowFontScaling: false);
+    MediaQueryData mediaQuery = MediaQuery.of(context);
+    if (mediaQuery.size.width > mediaQuery.size.height) {
+      ScreenUtil.init(context,
+          width: 1920, height: 1080, allowFontScaling: false);
+    } else {
+      ScreenUtil.init(context,
+          width: 1080, height: 1920, allowFontScaling: false);
+    }
   }
 
   @override
