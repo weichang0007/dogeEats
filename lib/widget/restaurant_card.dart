@@ -126,12 +126,19 @@ class _RestaurantCardState extends State<RestaurantCard> {
         ],
       ),
     );
-    return Card(
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromRGBO(192, 192, 192, 0.125),
+            blurRadius: 20.sp,
+            spreadRadius: 10.w,
+          ),
+        ],
+      ),
       margin: EdgeInsets.fromLTRB(30.w, 30.h, 30.w, 30.h),
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(6)),
-      ),
       child: content,
     );
   }

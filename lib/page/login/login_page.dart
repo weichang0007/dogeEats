@@ -20,7 +20,6 @@ class _LoginPageState extends State<LoginPage> {
     super.didChangeDependencies();
     _hasCheckLoginStatus = false;
     _checkLoginStatus();
-    _hasCheckLoginStatus = true;
   }
 
   void _screenInit(BuildContext context) {
@@ -32,7 +31,8 @@ class _LoginPageState extends State<LoginPage> {
     Setting setting = await Setting.instance;
     if (setting.token.isNotEmpty) {
       Navigator.of(context).pushReplacementNamed("/home");
-    }
+    } else
+      _hasCheckLoginStatus = true;
   }
 
   @override

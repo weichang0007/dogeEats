@@ -5,12 +5,26 @@ class IndexCarousel extends StatefulWidget {
   State<IndexCarousel> createState() => _IndexCarouselState();
 }
 
-// TODO: 接入首頁廣告
 class _IndexCarouselState extends State<IndexCarousel> {
-  final List<NetworkImage> _images = [
-    NetworkImage("https://fakeimg.pl/1001"),
-    NetworkImage("https://fakeimg.pl/1002"),
-    NetworkImage("https://fakeimg.pl/1003"),
+  final List<FadeInImage> _images = [
+    FadeInImage.memoryNetwork(
+      placeholder: kTransparentImage,
+      fit: BoxFit.fitWidth,
+      image:
+          'https://raw.githubusercontent.com/weichang0007/HW10-RWD/master/AD0.jpg',
+    ),
+    FadeInImage.memoryNetwork(
+      placeholder: kTransparentImage,
+      fit: BoxFit.fitWidth,
+      image:
+          'https://raw.githubusercontent.com/weichang0007/HW10-RWD/master/AD1.jpg',
+    ),
+    FadeInImage.memoryNetwork(
+      placeholder: kTransparentImage,
+      fit: BoxFit.fitWidth,
+      image:
+          'https://raw.githubusercontent.com/weichang0007/HW10-RWD/master/AD2.jpg',
+    ),
   ];
   int _current = 0;
 
@@ -20,10 +34,7 @@ class _IndexCarouselState extends State<IndexCarousel> {
       items: _images.map((image) {
         return Builder(
           builder: (BuildContext context) {
-            return Container(
-              width: double.infinity,
-              child: Image(image: image, fit: BoxFit.fitWidth),
-            );
+            return Container(width: double.infinity, child: image);
           },
         );
       }).toList(),
@@ -44,11 +55,12 @@ class _IndexCarouselState extends State<IndexCarousel> {
     );
     return Container(
       height: 600.h,
-      padding: EdgeInsets.fromLTRB(0, 50.h, 0, 50.h),
+      padding: EdgeInsets.fromLTRB(0, 0.h, 0, 50.h),
       child: Stack(
         overflow: Overflow.clip,
         alignment: Alignment.center,
         children: <Widget>[
+          Center(child: CircularProgressIndicator()),
           slider,
           Positioned(
             bottom: 20.h,
@@ -67,7 +79,7 @@ class _IndexCarouselState extends State<IndexCarousel> {
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: _current == index
-                                ? Color.fromRGBO(0, 0, 0, 0.9)
+                                ? Color.fromRGBO(255, 255, 255, 1)
                                 : Color.fromRGBO(0, 0, 0, 0.4)),
                       ),
                     ),

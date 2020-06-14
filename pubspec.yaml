@@ -39,6 +39,7 @@ dependencies:
   carousel_slider:
   nominatim_location_picker:
   google_maps_place_picker:
+  transparent_image:
 
 
   cupertino_icons: ^0.1.3

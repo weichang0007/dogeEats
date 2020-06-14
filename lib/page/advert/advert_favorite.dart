@@ -37,6 +37,7 @@ class _IndexFavoriteState extends State<IndexFavorite> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(left: 15.w),
       height: 900.h,
       child: ListView.builder(
         shrinkWrap: true,
