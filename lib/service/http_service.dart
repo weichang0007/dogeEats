@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 
 class HttpService {
+  static final String baseUrl = "https://dogeeats.pohc.me/api";
   static HttpService _instance;
   PersistCookieJar _cookieJar;
   Dio _dio;
@@ -48,6 +49,17 @@ class HttpService {
     final Dio request = await this.client;
     Options options = Options(contentType: Headers.formUrlEncodedContentType);
     return await request.post(path, data: form, options: options);
+  }
+
+  Future<Response> postJson(String path, String jsonString) async {
+    final Dio request = await this.client;
+    Options options = Options(
+      contentType: Headers.jsonContentType,
+      responseType: ResponseType.json,
+      headers: {HttpHeaders.acceptHeader: "accept: application/json"},
+      validateStatus: (status) => status < 500,
+    );
+    return await request.post(path, data: jsonString, options: options);
   }
 
   Future<void> clearCookie() async {

@@ -38,6 +38,7 @@ dependencies:
   rflutter_alert:
   carousel_slider:
   nominatim_location_picker:
+  google_maps_place_picker:
 
 
   cupertino_icons: ^0.1.3

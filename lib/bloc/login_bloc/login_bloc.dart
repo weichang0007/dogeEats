@@ -1,19 +1,32 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:dogeeats/model/models.dart';
+import 'package:dogeeats/service/services.dart';
 import 'package:equatable/equatable.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  LoginService _service = LoginService();
+
   @override
   LoginState get initialState => LoginInitial();
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     try {
-      // TODO: 實作登入邏輯
+      if (event is LoginButtonClickEvent) {
+        yield LoginWaiting();
+        Map response = await _service.login(event.props[0], event.props[1]);
+        Setting setting = await Setting.instance;
+        setting.name = response["user"]["name"].toString();
+        setting.email = response["user"]["email"].toString();
+        setting.token = response["token"].toString();
+        setting = await Setting.save();
+        yield LoginSucceeded(response.toString());
+      }
     } on DioError catch (_) {
       yield LoginFailed("連線錯誤");
     } catch (e) {

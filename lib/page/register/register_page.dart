@@ -26,8 +26,8 @@ class _RegisterPageState extends State<RegisterPage> {
       child: Column(children: _buildFormWidget()),
     );
     return Scaffold(
-      body: BlocListener<LoginBloc, LoginState>(
-        listener: _loginMessageHandler,
+      body: BlocListener<RegisterBloc, RegisterState>(
+        listener: _registerMessageHandler,
         child: Center(
           child: SingleChildScrollView(
             padding: EdgeInsets.all(130.w),
@@ -146,30 +146,40 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void _submit() async {
-    // TODO: 實作註冊表單 submit
     _registerFormKey.currentState.save();
     if (_registerFormKey.currentState.validate()) {
-      BlocProvider.of<LoginBloc>(context).add(LoginButtonClickEvent());
-      showDialog(
-        context: context,
-        child: AlertDialog(
-          title: Text("Debug Alert"),
-          content: Text("name:$_fullName\nemail:$_email\npassword:$_password"),
-        ),
-      );
+      BlocProvider.of<RegisterBloc>(context).add(RegisterButtonClickEvent(
+        _fullName,
+        _email,
+        _password,
+      ));
     }
   }
 
-  void _loginMessageHandler(context, state) async {
+  void _registerMessageHandler(context, state) async {
     final scaffold = Scaffold.of(context);
     scaffold.hideCurrentSnackBar();
-    if (state is LoginFailed)
+    if (state is RegisterFailed)
       _showLoginFailedMessage(scaffold, state.props[0]);
-    else if (state is LoginWaiting)
+    else if (state is RegisterWaiting)
       _showLoginWaitingMessage(scaffold);
-    else if (state is LoginSucceeded) {
+    else if (state is RegisterSucceeded) {
       _showLoginSuccessMessage(scaffold);
-      // TODO: 實作註冊成功後, 導航切換
+      showDialog(
+        context: context,
+        child: AlertDialog(
+          title: Text("註冊成功", style: TextStyle(color: Colors.grey)),
+          content: Text("感謝您的註冊!"),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pushReplacementNamed("/login");
+              },
+              child: Text("確認"),
+            ),
+          ],
+        ),
+      );
     }
   }
 

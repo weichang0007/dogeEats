@@ -1,4 +1,5 @@
 import 'package:dogeeats/bloc/blocs.dart';
+import 'package:dogeeats/model/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,10 +13,26 @@ class _LoginPageState extends State<LoginPage> {
   final _registerFormKey = GlobalKey<FormState>();
   String _email = "", _password = "";
   bool _passwordVisible = true;
+  bool _hasCheckLoginStatus = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _hasCheckLoginStatus = false;
+    _checkLoginStatus();
+    _hasCheckLoginStatus = true;
+  }
 
   void _screenInit(BuildContext context) {
     ScreenUtil.init(context,
         width: 1080, height: 1920, allowFontScaling: false);
+  }
+
+  Future<void> _checkLoginStatus() async {
+    Setting setting = await Setting.instance;
+    if (setting.token.isNotEmpty) {
+      Navigator.of(context).pushReplacementNamed("/home");
+    }
   }
 
   @override
@@ -25,17 +42,19 @@ class _LoginPageState extends State<LoginPage> {
       key: _registerFormKey,
       child: Column(children: _buildFormWidget()),
     );
-    return Scaffold(
-      body: BlocListener<LoginBloc, LoginState>(
-        listener: _loginMessageHandler,
-        child: Center(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.all(130.w),
-            child: Center(child: form),
-          ),
-        ),
-      ),
-    );
+    return _hasCheckLoginStatus
+        ? Scaffold(
+            body: BlocListener<LoginBloc, LoginState>(
+              listener: _loginMessageHandler,
+              child: Center(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.all(130.w),
+                  child: Center(child: form),
+                ),
+              ),
+            ),
+          )
+        : Center();
   }
 
   List<Widget> _buildFormWidget() {
@@ -118,16 +137,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _submit() async {
-    // TODO: 實作登入表單 submit
     _registerFormKey.currentState.save();
     if (_registerFormKey.currentState.validate()) {
-      BlocProvider.of<LoginBloc>(context).add(LoginButtonClickEvent());
-      showDialog(
-        context: context,
-        child: AlertDialog(
-          title: Text("Debug Alert"),
-          content: Text("email:$_email\npassword:$_password"),
-        ),
+      BlocProvider.of<LoginBloc>(context).add(
+        LoginButtonClickEvent(_email, _password),
       );
     }
   }
@@ -141,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
       _showLoginWaitingMessage(scaffold);
     else if (state is LoginSucceeded) {
       _showLoginSuccessMessage(scaffold);
-      // TODO: 實作登入成功後, 導航切換
+      _checkLoginStatus();
     }
   }
 

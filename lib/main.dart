@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dogeeats/bloc/blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:dogeeats/page/pages.dart';
@@ -55,7 +54,7 @@ class DogeEatsApp extends StatelessWidget {
         case '/':
           return PageTransition(
             duration: Duration(milliseconds: 500),
-            child: HomePage(),
+            child: LoginPage(),
             type: PageTransitionType.fade,
             settings: settings,
           );
@@ -94,7 +93,12 @@ class DogeEatsApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<LoginBloc>(create: (BuildContext context) => LoginBloc()),
+        BlocProvider<LoginBloc>(
+          create: (BuildContext context) => LoginBloc(),
+        ),
+        BlocProvider<RegisterBloc>(
+          create: (BuildContext context) => RegisterBloc(),
+        ),
       ],
       child: coustomerApp,
     );
