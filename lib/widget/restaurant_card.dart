@@ -169,7 +169,7 @@ class _RestaurantCardState extends State<RestaurantCard> {
 
   Widget _buildFavoriteIconButton() {
     return LikeButton(
-      isLiked: false,
+      isLiked: widget.isLiked,
       size: 60.sp,
       circleColor:
           CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
@@ -180,7 +180,7 @@ class _RestaurantCardState extends State<RestaurantCard> {
       likeBuilder: (bool isLiked) {
         return Icon(
           Icons.favorite,
-          color: isLiked ? Colors.grey : Colors.pink,
+          color: isLiked ? Colors.pink : Colors.grey,
           size: 60.sp,
         );
       },
@@ -189,7 +189,7 @@ class _RestaurantCardState extends State<RestaurantCard> {
           String baseUrl = HttpService.baseUrl;
           HttpService http = HttpService.instance;
           Response r;
-          if (isLiked)
+          if (!isLiked)
             r = await (http
                 .postEmpty("$baseUrl/restaurant/${widget.id}/favorite"));
           else
