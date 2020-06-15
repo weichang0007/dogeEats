@@ -1,3 +1,5 @@
+<p align="center"><img src="https://raw.githubusercontent.com/weichang0007/dogeEats/master/assets/images/logo.png" width="400"></p>
+
 # DogeEats
 
 useful application.
