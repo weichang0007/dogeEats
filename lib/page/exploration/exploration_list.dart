@@ -7,13 +7,12 @@ class IndexSearch extends StatefulWidget {
 
 // TODO: 實作與接入我的探索
 class _IndexSearchState extends State<IndexSearch> {
-
   final List<RestaurantCard> _item = [
     RestaurantCard(
       url:
           "https://images.deliveryhero.io/image/fd-tw/LH/f7mo-hero.jpg?width=4000&height=1000",
       name: "雞老爺",
-      type: "\$.美式美食",
+      description: "\$.美式美食",
       time: "10-20",
       star: "5.0",
       responseCount: 50,
@@ -25,7 +24,7 @@ class _IndexSearchState extends State<IndexSearch> {
       url:
           "https://images.deliveryhero.io/image/fd-tw/LH/f7mo-hero.jpg?width=4000&height=1000",
       name: "雞老爺",
-      type: "\$.美式美食",
+      description: "\$.美式美食",
       time: "40-50",
       star: "1.0",
       responseCount: 200,
@@ -37,7 +36,7 @@ class _IndexSearchState extends State<IndexSearch> {
       url:
           "https://images.deliveryhero.io/image/fd-tw/LH/f7mo-hero.jpg?width=4000&height=1000",
       name: "雞老爺",
-      type: "\$.美式美食",
+      description: "\$.美式美食",
       time: "40-50",
       star: "1.0",
       responseCount: 200,
@@ -49,7 +48,7 @@ class _IndexSearchState extends State<IndexSearch> {
       url:
           "https://images.deliveryhero.io/image/fd-tw/LH/f7mo-hero.jpg?width=4000&height=1000",
       name: "雞老爺",
-      type: "\$.美式美食",
+      description: "\$.美式美食",
       time: "40-50",
       star: "1.0",
       responseCount: 200,
@@ -63,19 +62,20 @@ class _IndexSearchState extends State<IndexSearch> {
   Widget build(BuildContext context) {
     return Container(
       height: 1700.h,
-      child:ListView.builder(
+      child: ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
         itemCount: _item.length + 1,
         itemBuilder: (BuildContext context, int index) {
           return index < _item.length
-              ? Padding(padding: EdgeInsets.all(30.w), child:
-          InkWell(
-            child: _item[index],
-            onTap:(){
-              Navigator.pushNamed(context, "/restaurant");
-            },
-          ))
+              ? Padding(
+                  padding: EdgeInsets.all(30.w),
+                  child: InkWell(
+                    child: _item[index],
+                    onTap: () {
+                      Navigator.pushNamed(context, "/restaurant");
+                    },
+                  ))
               : Padding(padding: EdgeInsets.only(bottom: 30.h));
         },
       ),

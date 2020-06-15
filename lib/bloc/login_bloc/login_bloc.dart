@@ -25,6 +25,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         setting.email = response["user"]["email"].toString();
         setting.token = response["token"].toString();
         setting = await Setting.save();
+        await (HttpService.instance).resetClient(); // reload token
         yield LoginSucceeded(response.toString());
       }
     } on DioError catch (_) {

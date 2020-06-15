@@ -32,7 +32,9 @@ class _LoginPageState extends State<LoginPage> {
     if (setting.token.isNotEmpty) {
       Navigator.of(context).pushReplacementNamed("/home");
     } else
-      _hasCheckLoginStatus = true;
+      setState(() {
+        _hasCheckLoginStatus = true;
+      });
   }
 
   @override

@@ -1,27 +1,40 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
+import 'package:dogeeats/service/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:like_button/like_button.dart';
 
 class RestaurantCard extends StatefulWidget {
+  final int id;
   final String url;
   final double width;
   final double height;
   final String name;
-  final String type;
+  final String description;
   final String time;
   final String star;
   final String price;
+  final String address;
   final int responseCount;
+  final bool isLiked;
+  final Function(bool) onLikeChenged;
 
   RestaurantCard({
-    this.url,
-    this.name,
-    this.type,
-    this.time,
-    this.star,
-    this.responseCount,
-    this.price,
-    this.width,
-    this.height,
+    @required this.id,
+    @required this.url,
+    @required this.name,
+    @required this.address,
+    @required this.description,
+    @required this.time,
+    @required this.star,
+    @required this.responseCount,
+    @required this.price,
+    @required this.width,
+    @required this.height,
+    @required this.isLiked,
+    @required this.onLikeChenged,
   });
 
   @override
@@ -53,17 +66,28 @@ class _RestaurantCardState extends State<RestaurantCard> {
           SizedBox(
             width: widget.width,
             height: widget.height / 1.8,
-            child: Image.network(widget.url, fit: BoxFit.cover),
+            child: FadeInImage.assetNetwork(
+              placeholder: 'assets/images/image_unavailable.png',
+              image: widget.url,
+              fit: BoxFit.cover,
+            ),
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(26.w, 20.h, 0, 0),
+            margin: EdgeInsets.fromLTRB(26.w, 20.h, 26.w, 0),
             alignment: Alignment.centerLeft,
-            child: Text(widget.name, style: _titleStyle),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(widget.name, style: _titleStyle),
+                _buildFavoriteIconButton(),
+              ],
+            ),
           ),
           Container(
             margin: EdgeInsets.fromLTRB(26.w, 0, 0, 10.h),
             alignment: Alignment.centerLeft,
-            child: Text(widget.type, style: _subTitleStyle),
+            child: Text(widget.description, style: _subTitleStyle),
           ),
           Transform(
             transform: Matrix4.identity()..scale(0.9),
@@ -140,6 +164,46 @@ class _RestaurantCardState extends State<RestaurantCard> {
       margin: EdgeInsets.fromLTRB(30.w, 30.h, 30.w, 30.h),
       clipBehavior: Clip.antiAlias,
       child: content,
+    );
+  }
+
+  Widget _buildFavoriteIconButton() {
+    return LikeButton(
+      isLiked: false,
+      size: 60.sp,
+      circleColor:
+          CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
+      bubblesColor: BubblesColor(
+        dotPrimaryColor: Color(0xff33b5e5),
+        dotSecondaryColor: Color(0xff0099cc),
+      ),
+      likeBuilder: (bool isLiked) {
+        return Icon(
+          Icons.favorite,
+          color: isLiked ? Colors.grey : Colors.pink,
+          size: 60.sp,
+        );
+      },
+      onTap: (bool isLiked) async {
+        try {
+          String baseUrl = HttpService.baseUrl;
+          HttpService http = HttpService.instance;
+          Response r;
+          if (isLiked)
+            r = await (http
+                .postEmpty("$baseUrl/restaurant/${widget.id}/favorite"));
+          else
+            r = await (http
+                .deleteEmpty("$baseUrl/restaurant/${widget.id}/favorite"));
+          Map jsonData = json.decode(r.data);
+          if (jsonData['message'] != "success") throw Exception();
+        } catch (e) {
+          return isLiked;
+        }
+        isLiked = !isLiked;
+        if (widget.onLikeChenged != null) widget.onLikeChenged(isLiked);
+        return isLiked;
+      },
     );
   }
 }
