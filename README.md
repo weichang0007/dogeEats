@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/weichang0007/dogeEats/master/assets/images/logo.png" width="400"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/weichang0007/HW10-RWD/master/logo.png" width="400"></p>
 
 # DogeEats
 
