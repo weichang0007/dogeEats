@@ -32,7 +32,7 @@ class _IndexFavoriteState extends State<IndexFavorite> {
             List<RestaurantCard> list = async.data;
             return Container(
               padding: EdgeInsets.only(left: 15.w),
-              height: 900.h,
+              height: 1000.h,
               child: RefreshIndicator(
                 child: _buildListView(context, list),
                 onRefresh: refresh,
@@ -41,7 +41,7 @@ class _IndexFavoriteState extends State<IndexFavorite> {
           }
         }
         return Container(
-          height: 900.h,
+          height: 1000.h,
           padding: EdgeInsets.fromLTRB(0, 100.h, 0, 0),
           child: RefreshIndicator(
             onRefresh: refresh,
@@ -97,7 +97,7 @@ class _IndexFavoriteState extends State<IndexFavorite> {
         result.add(RestaurantParser.fromJson(
           json.encode(item['restaurant']),
           700.w,
-          900.h,
+          1000.h,
           true,
           onLikeChecged,
         ));
