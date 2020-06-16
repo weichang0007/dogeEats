@@ -15,11 +15,11 @@ class _LoginPageState extends State<LoginPage> {
   bool _passwordVisible = true;
   bool _hasCheckLoginStatus = false;
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+@override
+  void initState() {
     _hasCheckLoginStatus = false;
     _checkLoginStatus();
+    super.initState();
   }
 
   void _screenInit(BuildContext context) {
@@ -32,9 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     if (setting.token.isNotEmpty) {
       Navigator.of(context).pushReplacementNamed("/home");
     } else
-      setState(() {
         _hasCheckLoginStatus = true;
-      });
   }
 
   @override
