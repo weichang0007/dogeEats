@@ -1,3 +1,5 @@
+<p align="center"><img src="https://raw.githubusercontent.com/weichang0007/HW10-RWD/master/logo.png" width="400"></p>
+
 # DogeEats
 
 useful application.

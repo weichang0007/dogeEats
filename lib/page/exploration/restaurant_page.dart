@@ -9,15 +9,14 @@ class RestaurantPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final String picURL =
         "https://images.deliveryhero.io/image/fd-tw/LH/f7mo-hero.jpg?width=4000&height=1000";
-    return Container(
+    return Scaffold(body : Container(
       color: Colors.white,
       child: SingleChildScrollView(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Container(
               height: 1000.h,
-              margin: EdgeInsets.fromLTRB(26.w, 20.h, 0, 0),
               alignment: Alignment.centerLeft,
               child: Image.network(
                 picURL,
@@ -31,6 +30,6 @@ class RestaurantPage extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ),);
   }
 }
