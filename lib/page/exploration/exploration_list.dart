@@ -5,7 +5,6 @@ class IndexSearch extends StatefulWidget {
   State<IndexSearch> createState() => _IndexSearchState();
 }
 
-// TODO: 實作與接入我的探索
 class _IndexSearchState extends State<IndexSearch> {
   Future future;
   HttpService _http = HttpService.instance;
@@ -88,7 +87,7 @@ class _IndexSearchState extends State<IndexSearch> {
       List<int> favoriteID = [];
       for (var item in favoriteJsonList) favoriteID.add(item['restaurant_id']);
       return RestaurantParser.fromJsonArray(
-          restaurantJsonList, 1020.w, 900.h, favoriteID, null);
+          restaurantJsonList, 1020.w, 1020.w, favoriteID, null);
     } catch (e) {
       return null;
     }
