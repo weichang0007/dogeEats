@@ -63,7 +63,7 @@ class _IndexSearchState extends State<IndexSearch> {
   Widget _buildListView(BuildContext context, List<RestaurantCard> list) {
     final searchBar = Container(
       decoration: BoxDecoration(
-        color: Colors.white70,
+        color: Color.fromRGBO(255, 255, 255, 0.9),
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(6),
         border: Border.all(
