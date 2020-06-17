@@ -34,10 +34,9 @@ class _IndexFavoriteState extends State<IndexFavorite> {
             List<RestaurantCard> list = async.data;
             return Container(
               padding: EdgeInsets.only(left: 15.w),
-              height: 1000.h,
               child: RefreshIndicator(
-                child: _buildListView(context, list),
                 onRefresh: refresh,
+                child: _buildListView(context, list),
               ),
             );
           }
@@ -77,13 +76,9 @@ class _IndexFavoriteState extends State<IndexFavorite> {
           ],
         ),
       );
-    return ListView.builder(
-      primary: true,
-      physics: ScrollPhysics(),
-      shrinkWrap: true,
+    return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      itemCount: list.length,
-      itemBuilder: (BuildContext context, int index) => list[index],
+      child: Row(children: list),
     );
   }
 

@@ -60,16 +60,16 @@ class _RestaurantCardState extends State<RestaurantCard> {
   Widget build(BuildContext context) {
     final content = Container(
       width: widget.width,
-      height: widget.height,
       child: Column(
         children: [
-          SizedBox(
-            width: widget.width,
+          Container(
+            width: double.infinity,
             height: widget.height / 1.8,
             child: FadeInImage.assetNetwork(
-              placeholder: 'assets/images/image_unavailable.png',
-              image: widget.url,
               fit: BoxFit.cover,
+              placeholder: "assets/images/image_unavailable.png",
+              image:
+                  "https://visualsound.com/wp-content/uploads/2019/05/unavailable-image.jpg",
             ),
           ),
           Container(
@@ -147,6 +147,7 @@ class _RestaurantCardState extends State<RestaurantCard> {
               ),
             ),
           ),
+          Padding(padding: EdgeInsets.all(10.h)),
         ],
       ),
     );

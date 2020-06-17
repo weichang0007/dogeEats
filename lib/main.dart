@@ -109,6 +109,9 @@ class DogeEatsApp extends StatelessWidget {
           BlocProvider<RegisterBloc>(
             create: (BuildContext context) => RegisterBloc(),
           ),
+          BlocProvider<AppbarBloc>(
+            create: (BuildContext context) => AppbarBloc(),
+          ),
         ],
         child: coustomerApp,
       ),

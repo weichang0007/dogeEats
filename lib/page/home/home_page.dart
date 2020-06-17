@@ -1,4 +1,6 @@
+import 'package:dogeeats/bloc/blocs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../pages.dart';
 
@@ -17,7 +19,7 @@ class _HomeNavigationState extends State<HomeNavigation> {
   final List<Widget> _pages = [
     AdvertPage(),
     ExplorationPage(),
-    Center(),
+    OrderListPage(),
     ProfilePage(),
   ];
   final List<BottomNavigationBarItem> _navigationButtons = [
@@ -38,10 +40,11 @@ class _HomeNavigationState extends State<HomeNavigation> {
       title: Text('帳戶'),
     ),
   ];
-  // TODO: 實作 AppBar
-  final PreferredSizeWidget _appbar = AppBar(
+
+  PreferredSizeWidget _appbar = AppBar(
     title: Text("送至: 這邊還沒寫"),
   );
+
   int _index = 0;
 
   void _screenInit(BuildContext context) {
@@ -58,23 +61,28 @@ class _HomeNavigationState extends State<HomeNavigation> {
   @override
   Widget build(BuildContext context) {
     _screenInit(context);
-    return Scaffold(
-      key: _scaffoldkey,
-      appBar: _appbar,
-      body: _pages[_index],
-      bottomNavigationBar: BottomNavigationBar(
-        showUnselectedLabels: false,
-        backgroundColor: Colors.white,
-        fixedColor: Colors.grey[850],
-        unselectedItemColor: Colors.grey,
-        type: BottomNavigationBarType.fixed,
-        items: _navigationButtons,
-        currentIndex: _index,
-        onTap: (int index) => setState(() {
-          _screenInit(context);
-          _scaffoldkey.currentState.hideCurrentSnackBar();
-          _index = index;
-        }),
+    return BlocListener<AppbarBloc, AppbarState>(
+      listener: (context, state) {
+        if (state is AppbarModify) setState(() => _appbar = state.props[0]);
+      },
+      child: Scaffold(
+        key: _scaffoldkey,
+        appBar: _appbar,
+        body: _pages[_index],
+        bottomNavigationBar: BottomNavigationBar(
+          showUnselectedLabels: false,
+          backgroundColor: Colors.white,
+          fixedColor: Colors.grey[850],
+          unselectedItemColor: Colors.grey,
+          type: BottomNavigationBarType.fixed,
+          items: _navigationButtons,
+          currentIndex: _index,
+          onTap: (int index) => setState(() {
+            _screenInit(context);
+            _scaffoldkey.currentState.hideCurrentSnackBar();
+            _index = index;
+          }),
+        ),
       ),
     );
   }

@@ -1,11 +1,14 @@
 import 'dart:io';
+import 'package:dogeeats/bloc/blocs.dart';
 import 'package:dogeeats/model/models.dart';
 import 'package:dogeeats/service/services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:url_launcher/url_launcher.dart';
+//import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -32,8 +35,19 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
+  void _modifyAppbar(BuildContext context) {
+    Widget appbar = AppBar(
+      title: Text(
+        "帳戶設定",
+        style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 48.sp),
+      ),
+    );
+    BlocProvider.of<AppbarBloc>(context).add(ModifyAppbarEvent(appbar));
+  }
+
   @override
   Widget build(BuildContext context) {
+    _modifyAppbar(context);
     if (_loading) {
       return LinearProgressIndicator();
     } else {
@@ -158,8 +172,26 @@ class _ProfilePageState extends State<ProfilePage> {
     final url =
         'https://docs.google.com/forms/d/e/1FAIpQLSdmXEtspnpCKqZSyADhe7lU78qaSaoEWrqsR32A_ligOLeWRA/viewform?usp=pp_url&entry.522788031=' +
             Uri.encodeComponent(versionString);
-    if (await canLaunch(url)) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WebviewScaffold(
+          url: url,
+          appBar: AppBar(
+            leading: Icon(Icons.forum, color: Colors.black),
+            title: Text(
+              "意見與問題回報",
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6
+                  .copyWith(fontSize: 48.sp),
+            ),
+          ),
+        ),
+      ),
+    );
+    /*if (await canLaunch(url)) {
       await launch(url);
-    }
+    }*/
   }
 }

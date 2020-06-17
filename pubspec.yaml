@@ -42,6 +42,7 @@ dependencies:
   transparent_image:
   like_button:
   flutter_phoenix:
+  flutter_webview_plugin:
 
 
   cupertino_icons: ^0.1.3
