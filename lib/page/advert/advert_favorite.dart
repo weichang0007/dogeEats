@@ -15,7 +15,9 @@ class _IndexFavoriteState extends State<IndexFavorite> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    future = getdata();
+    try {
+      future = getdata();
+    } catch (e) {}
   }
 
   FutureBuilder<List<RestaurantCard>> _buildFutureBuilder() {
@@ -103,6 +105,10 @@ class _IndexFavoriteState extends State<IndexFavorite> {
         ));
       return result;
     } catch (e) {
+      Setting setting = await Setting.instance;
+      BlocProvider.of<LoginBloc>(context).add(
+        LoginButtonClickEvent(setting.email, setting.passwd),
+      );
       return null;
     }
   }

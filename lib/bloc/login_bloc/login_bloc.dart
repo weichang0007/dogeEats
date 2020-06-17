@@ -23,6 +23,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         Setting setting = await Setting.instance;
         setting.name = response["user"]["name"].toString();
         setting.email = response["user"]["email"].toString();
+        setting.passwd = event.props[1].toString();
         setting.token = response["token"].toString();
         setting = await Setting.save();
         await (HttpService.instance).resetClient(); // reload token

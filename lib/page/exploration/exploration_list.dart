@@ -6,7 +6,8 @@ class IndexSearch extends StatefulWidget {
 }
 
 class _IndexSearchState extends State<IndexSearch> {
-  Future future;
+  TextEditingController _controller = TextEditingController();
+  Future _future;
   HttpService _http = HttpService.instance;
 
   @override
@@ -15,7 +16,9 @@ class _IndexSearchState extends State<IndexSearch> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    future = getdata();
+    try {
+      _future = getdata();
+    } catch (e) {}
   }
 
   FutureBuilder<List<RestaurantCard>> _buildFutureBuilder() {
@@ -53,35 +56,78 @@ class _IndexSearchState extends State<IndexSearch> {
           ),
         );
       },
-      future: future,
+      future: _future,
     );
   }
 
   Widget _buildListView(BuildContext context, List<RestaurantCard> list) {
+    final searchBar = Container(
+      decoration: BoxDecoration(
+        color: Colors.white70,
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(
+          color: Colors.grey,
+          width: 2.0,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromRGBO(192, 192, 192, 0.125),
+            blurRadius: 20.sp,
+            spreadRadius: 10.w,
+          ),
+        ],
+      ),
+      margin: EdgeInsets.only(top: 30.h, left: 60.w, right: 60.w),
+      child: TextField(
+        controller: _controller,
+        onSubmitted: (value) => refresh(query: "?name=" + _controller.text),
+        decoration: InputDecoration(
+          hintText: "",
+          prefixIcon: IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () => refresh(query: "?name=" + _controller.text),
+            color: Colors.grey,
+          ),
+          suffixIcon: IconButton(
+            onPressed: () => _controller.clear(),
+            icon: Icon(Icons.clear),
+            color: Colors.grey,
+          ),
+          border: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
+        ),
+      ),
+    );
     return ListView.builder(
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
-      itemCount: list.length,
+      itemCount: list.length + 1,
       itemBuilder: (BuildContext context, int index) {
-        return Padding(
-          padding: EdgeInsets.fromLTRB(30.w, 30.h, 30.w, 0.h),
-          child: InkWell(
-            child: list[index],
-            onTap: () {
-              Navigator.pushNamed(context, "/restaurant");
-            },
-          ),
-        );
+        if (index != 0) {
+          return Padding(
+            padding: EdgeInsets.fromLTRB(30.w, 30.h, 30.w, 0.h),
+            child: InkWell(
+              child: list[index - 1],
+              onTap: () {
+                Navigator.pushNamed(context, "/restaurant");
+              },
+            ),
+          );
+        }
+        return searchBar;
       },
     );
   }
 
-  Future<List<RestaurantCard>> getdata() async {
+  Future<List<RestaurantCard>> getdata({String query}) async {
     try {
       String baseUrl = HttpService.baseUrl;
       Future<Response> favorites =
           _http.getJsonData("$baseUrl/restaurant/favorites");
-      Future<Response> restaurants = _http.getJsonData("$baseUrl/restaurants");
+      String searchUrl = "$baseUrl/restaurants" + (query ?? "");
+      Future<Response> restaurants = _http.getJsonData(searchUrl);
       List favoriteJsonList = (await favorites).data;
       List restaurantJsonList = (await restaurants).data;
       List<int> favoriteID = [];
@@ -89,14 +135,18 @@ class _IndexSearchState extends State<IndexSearch> {
       return RestaurantParser.fromJsonArray(
           restaurantJsonList, 1020.w, 1020.w, favoriteID, null);
     } catch (e) {
+      Setting setting = await Setting.instance;
+      BlocProvider.of<LoginBloc>(context).add(
+        LoginButtonClickEvent(setting.email, setting.passwd),
+      );
       return null;
     }
   }
 
-  Future refresh() async {
+  Future refresh({String query}) async {
     setState(() {
       try {
-        future = getdata();
+        _future = getdata(query: query);
       } catch (e) {}
     });
   }

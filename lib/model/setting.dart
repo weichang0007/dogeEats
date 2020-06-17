@@ -21,6 +21,7 @@ class Setting {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Setting setting = await Setting.instance;
     await preferences.setString('setting', json.encode(setting));
+    _instance = null; // reload
     return setting;
   }
 
@@ -32,6 +33,7 @@ class Setting {
 
   String name = "";
   String email = "";
+  String passwd = "";
   String token = "";
 
   Setting();
@@ -39,11 +41,13 @@ class Setting {
   Setting.fromJson(Map<String, dynamic> json)
       : name = json['name'],
         email = json['email'],
+        passwd = json['passwd'],
         token = json['token'];
 
   Map<String, dynamic> toJson() => {
         'name': name,
         'email': email,
+        'passwd': passwd,
         'token': token,
       };
 }
