@@ -41,6 +41,7 @@ dependencies:
   google_maps_place_picker:
   transparent_image:
   like_button:
+  flutter_phoenix:
 
 
   cupertino_icons: ^0.1.3

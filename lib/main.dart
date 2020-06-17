@@ -3,6 +3,7 @@ import 'package:dogeeats/bloc/blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:dogeeats/page/pages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:page_transition/page_transition.dart';
 
 void main() {
@@ -99,16 +100,18 @@ class DogeEatsApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<LoginBloc>(
-          create: (BuildContext context) => LoginBloc(),
-        ),
-        BlocProvider<RegisterBloc>(
-          create: (BuildContext context) => RegisterBloc(),
-        ),
-      ],
-      child: coustomerApp,
+    return Phoenix(
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<LoginBloc>(
+            create: (BuildContext context) => LoginBloc(),
+          ),
+          BlocProvider<RegisterBloc>(
+            create: (BuildContext context) => RegisterBloc(),
+          ),
+        ],
+        child: coustomerApp,
+      ),
     );
   }
 }

@@ -18,7 +18,7 @@ class _HomeNavigationState extends State<HomeNavigation> {
     AdvertPage(),
     ExplorationPage(),
     Center(),
-    Center(),
+    ProfilePage(),
   ];
   final List<BottomNavigationBarItem> _navigationButtons = [
     BottomNavigationBarItem(
