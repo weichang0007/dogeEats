@@ -65,6 +65,7 @@ class _IndexFavoriteState extends State<IndexFavorite> {
   Widget _buildListView(BuildContext context, List<RestaurantCard> list) {
     if (list.length == 0)
       return Container(
+        height: 1000.h,
         padding: EdgeInsets.only(top: 100.h),
         child: ListView(
           children: <Widget>[

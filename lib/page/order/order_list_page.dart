@@ -17,7 +17,6 @@ class _OrderListPageState extends State<OrderListPage> {
   @override
   Widget build(BuildContext context) {
     _modifyAppbar(context);
-    setState(() {});
     return DefaultTabController(
       length: 2,
       child: Scaffold(

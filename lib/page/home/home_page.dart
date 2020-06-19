@@ -19,7 +19,7 @@ class _HomeNavigationState extends State<HomeNavigation> {
   final List<Widget> _pages = [
     AdvertPage(),
     ExplorationPage(),
-    OrderListPage(),
+    OrderListPage(), //_ShoppingCartPageState(),
     ProfilePage(),
   ];
   final List<BottomNavigationBarItem> _navigationButtons = [

@@ -31,6 +31,23 @@ class _OrderInfoCardState extends State<OrderInfoCard> {
           Divider(color: Colors.black),
           _buildOrderDetail(context),
           Divider(color: Colors.black),
+          _buildOrderTotal(context),
+          Container(
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 30.h),
+            width: double.infinity,
+            child: FlatButton(
+              color: Colors.green,
+              onPressed: () {},
+              child: Text(
+                "檢視進度",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 36.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -88,6 +105,22 @@ class _OrderInfoCardState extends State<OrderInfoCard> {
           Container(
             child: Text("　茶碗蒸", style: subTitleStyle),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOrderTotal(BuildContext context) {
+    final totalStyle = TextStyle(color: Colors.black, fontSize: 36.sp);
+    final cancelStyle = TextStyle(color: Colors.red, fontSize: 32.sp);
+    return Container(
+      padding: EdgeInsets.only(left: 60.w, right: 30.w),
+      alignment: Alignment.bottomLeft,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text("55688 TWD", style: totalStyle),
+          FlatButton(onPressed: null, child: Text("取消訂單", style: cancelStyle))
         ],
       ),
     );
