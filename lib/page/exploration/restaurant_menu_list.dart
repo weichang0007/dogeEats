@@ -44,6 +44,24 @@ class _IndexMenuState extends State<IndexMenu> {
       width: 1080.w,
       height: 300.h,
     ),
+    RestaurantMenu(
+      url:
+      "https://images.deliveryhero.io/image/fd-tw/LH/f7mo-hero.jpg?width=4000&height=1000",
+      name: "雞老爺5號餐",
+      type: "\$.美式美食",
+      price: "30",
+      width: 1080.w,
+      height: 300.h,
+    ),
+    RestaurantMenu(
+      url:
+      "https://images.deliveryhero.io/image/fd-tw/LH/f7mo-hero.jpg?width=4000&height=1000",
+      name: "雞老爺6號餐",
+      type: "\$.美式美食",
+      price: "30",
+      width: 1080.w,
+      height: 300.h,
+    ),
   ];
 
   @override
