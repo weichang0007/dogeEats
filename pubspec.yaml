@@ -37,12 +37,14 @@ dependencies:
   permission_handler:
   rflutter_alert:
   carousel_slider:
-  nominatim_location_picker:
   google_maps_place_picker:
   transparent_image:
   like_button:
   flutter_phoenix:
   flutter_webview_plugin:
+  flutter_credit_card:
+  credit_card_number_validator:
+  geolocator:
 
 
   cupertino_icons: ^0.1.3

@@ -35,6 +35,10 @@ class Setting {
   String email = "";
   String passwd = "";
   String token = "";
+  String address = "";
+  double latitude = 25.0424162;
+  double longitude = 121.5355554;
+  bool hasSetLocation = false;
 
   Setting();
 
@@ -42,12 +46,20 @@ class Setting {
       : name = json['name'],
         email = json['email'],
         passwd = json['passwd'],
-        token = json['token'];
+        token = json['token'],
+        address = json['address'],
+        latitude = json['latitude'],
+        longitude = json['longitude'],
+        hasSetLocation = json['hasSetLocation'];
 
   Map<String, dynamic> toJson() => {
         'name': name,
         'email': email,
         'passwd': passwd,
         'token': token,
+        'address': address,
+        'latitude': latitude,
+        'longitude': longitude,
+        'hasSetLocation': hasSetLocation,
       };
 }
