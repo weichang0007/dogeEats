@@ -69,13 +69,29 @@ class _IndexMenuState extends State<IndexMenu> {
     return Container(
       height: 800.h,
       child:ListView.builder(
+
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
         itemCount: _item.length + 1,
         itemBuilder: (BuildContext context, int index) {
-          return index < _item.length
-              ? Padding(padding: EdgeInsets.all(30.w), child:_item[index])
-              : Padding(padding: EdgeInsets.only(bottom: 30.h));
+
+          if (index < _item.length) {
+
+          return Padding(
+              padding: EdgeInsets.all(2.w),
+              child:InkWell(
+                child:_item[index],
+                onTap: () {
+                  Navigator.pushNamed(context, "/option");
+                },
+              ),
+          );
+          }
+          else{
+            return Padding(
+                padding: EdgeInsets.only(bottom: 50.h),
+            );
+          }
         },
       ),
     );

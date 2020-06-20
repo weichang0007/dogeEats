@@ -92,6 +92,14 @@ class DogeEatsApp extends StatelessWidget {
             settings: settings,
           );
           break;
+        case '/option':
+          return PageTransition(
+            duration: Duration(milliseconds: 500),
+            child: OptionPage(),
+            type: PageTransitionType.fade,
+            settings: settings,
+          );
+          break;
         default:
           return null;
       }

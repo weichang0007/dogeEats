@@ -36,6 +36,7 @@ class RestaurantPage extends StatelessWidget {
                 TabBar(
 
                   labelColor: Colors.black87,
+
                   unselectedLabelColor: Colors.grey,
                   indicator: UnderlineTabIndicator(
                       borderSide: BorderSide(width: 5.0),
@@ -48,6 +49,7 @@ class RestaurantPage extends StatelessWidget {
                 ),
               ),
               pinned: false,
+
             ),
           ];
         },
@@ -59,6 +61,7 @@ class RestaurantPage extends StatelessWidget {
 }
 class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   _SliverAppBarDelegate(this._tabBar);
+
 
   final TabBar _tabBar;
 

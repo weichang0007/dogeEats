@@ -5,6 +5,8 @@ export './register/register_page.dart';
 export './location_picker/location_picker_page.dart';
 export './exploration/exploration_page.dart';
 export './exploration/restaurant_page.dart';
+export './exploration/options_page.dart';
 export './profile/profile_page.dart';
 export './order/order_list_page.dart';
 export './shopping_cart/shopping_cart_page.dart';
+
