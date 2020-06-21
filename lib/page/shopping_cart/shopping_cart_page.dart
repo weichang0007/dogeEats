@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:dogeeats/bloc/blocs.dart';
 import 'package:dogeeats/model/models.dart';
@@ -17,6 +19,7 @@ class ShoppingCartPage extends StatefulWidget {
 
 class _ShoppingCartPageState extends State<ShoppingCartPage> {
   int total = 0;
+  int rid = 0;
   Future future;
   HttpService _http = HttpService.instance;
   bool _switchState = false;
@@ -54,6 +57,46 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 50.w),
                 child: ListTile(
+                  onTap: () async {
+                    String url = HttpService.baseUrl;
+                    Setting setting = await Setting.instance;
+                    await _http.postJson(
+                      "$url/cart/order",
+                      json.encode(
+                        {
+                          "restaurant_id": rid,
+                          "address_destination": setting.address,
+                          "position_destination":
+                              "${setting.latitude},${setting.longitude}",
+                          "custom": ""
+                        },
+                      ),
+                    );
+                    Alert(
+                      context: context,
+                      type: AlertType.success,
+                      title: "您的訂單已送出",
+                      desc: "您的訂單已送出, 請至訂單查看!",
+                      style: AlertStyle(
+                        isCloseButton: false,
+                        isOverlayTapDismiss: false,
+                      ),
+                      buttons: [
+                        DialogButton(
+                          child: Text(
+                            "確定",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                          },
+                          width: 120,
+                        )
+                      ],
+                    ).show();
+                  },
                   contentPadding: EdgeInsets.zero,
                   leading: Icon(Icons.shopping_cart, color: Colors.white),
                   title: Text(
@@ -203,7 +246,22 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
         children: <Widget>[
               Container(
                 padding: EdgeInsets.only(left: 0.w, top: 20.h, bottom: 20.h),
-                child: Text("您的訂單", style: titleStyle),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text("您的訂單", style: titleStyle),
+                    IconButton(
+                      icon:
+                          Icon(Icons.remove_circle_outline, color: Colors.red),
+                      onPressed: () {
+                        HttpService.instance
+                            .deleteEmpty(HttpService.baseUrl + "/cart");
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
               ),
             ] +
             orderDetail,
@@ -322,6 +380,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
       Response cartResponse = await _http.getJsonData("$baseUrl/cart");
       if (cartResponse.data.length == 0) return null;
       Map cartList = cartResponse.data[0];
+      rid = cartList['restaurant_id'];
       Map restaurant = (await _http
               .getJsonData("$baseUrl/restaurant/${cartList['restaurant_id']}"))
           .data;

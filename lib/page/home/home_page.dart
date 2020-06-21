@@ -20,7 +20,7 @@ class _HomeNavigationState extends State<HomeNavigation> {
     AdvertPage(),
     ExplorationPage(),
     //OrderListPage(), //LocationPickerPage(), //ShoppingCartPage(),
-    ShoppingCartPage(),
+    OrderListPage(),
     ProfilePage(),
   ];
   final List<BottomNavigationBarItem> _navigationButtons = [
