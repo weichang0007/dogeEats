@@ -1,8 +1,11 @@
 part of 'restaurant_page.dart';
 
 class RestaurantMenuList extends StatefulWidget {
+  final int id;
   final List products;
-  const RestaurantMenuList({Key key, this.products}) : super(key: key);
+  final Function(dynamic value) onTap;
+  const RestaurantMenuList({Key key, this.products, this.onTap, this.id})
+      : super(key: key);
   @override
   State<RestaurantMenuList> createState() => _RestaurantMenuListState();
 }
@@ -29,12 +32,17 @@ class _RestaurantMenuListState extends State<RestaurantMenuList> {
             width: 1080.w,
             height: 300.h,
           ),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => OptionPage(product: product)),
-            );
+          onTap: () async {
+            if (product["options"].length != 0) {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        OptionPage(product: product, id: widget.id)),
+              );
+              widget.onTap(null);
+            } else
+              widget.onTap(product["id"]);
           },
         ),
       );

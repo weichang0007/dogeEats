@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:ui';
 
+import 'package:dio/dio.dart';
 import 'package:dogeeats/bloc/blocs.dart';
 import 'package:dogeeats/page/pages.dart';
 import 'package:dogeeats/service/http_service.dart';
@@ -7,6 +9,7 @@ import 'package:dogeeats/widget/restaurant_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 part 'restaurant_menu_list.dart';
@@ -20,14 +23,79 @@ class RestaurantPage extends StatefulWidget {
 
 class _RestaurantPageState extends State<RestaurantPage>
     with TickerProviderStateMixin {
+  int count = 0;
   TabController _tabController;
   Future future;
   HttpService _http = HttpService.instance;
+  final String _baseUrl = HttpService.baseUrl;
 
   @override
   void initState() {
     _tabController = TabController(length: 0, vsync: this);
+    _checkCartAndCreate();
+    _checkCart();
     super.initState();
+  }
+
+  void _checkCartAndCreate() async {
+    try {
+      List cart = (await _http.getJsonData("$_baseUrl/cart")).data;
+      if (cart.length > 0 &&
+          cart[0]['restaurant_id'].toString() != widget.id.toString() &&
+          cart[0]['products'].length > 0) {
+        Alert(
+          style: AlertStyle(isOverlayTapDismiss: false, isCloseButton: false),
+          context: context,
+          type: AlertType.warning,
+          title: "偵測您的購物車有未結帳商品",
+          desc: "我們偵測您的購物車有其他商店之未結帳商品, 須清除後才可進入本商店!",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "清除",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () async {
+                await _createCart();
+                await _checkCart();
+                Navigator.pop(context);
+              },
+              color: Color.fromRGBO(0, 179, 134, 1.0),
+            ),
+            DialogButton(
+              child: Text(
+                "取消",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+              color: Colors.grey,
+            )
+          ],
+        ).show();
+      } else if (cart.length > 0 &&
+          cart[0]['restaurant_id'].toString() == widget.id.toString())
+        return;
+      else
+        await _createCart();
+    } catch (e) {
+      _createCart();
+    }
+  }
+
+  Future<void> _createCart() async {
+    try {
+      Response cart = (await _http.postJson(
+        "$_baseUrl/cart",
+        json.encode({"restaurant_id": widget.id.toString(), "products": []}),
+      ));
+      if (cart.data['message'] != "success")
+        throw Exception("Create Cart Error!");
+    } catch (e) {
+      //Future.delayed(Duration(seconds: 3), () => _createCart());
+    }
   }
 
   @override
@@ -61,6 +129,40 @@ class _RestaurantPageState extends State<RestaurantPage>
             final List<Widget> tabs = _buildTabs(context, map);
             _tabController = TabController(length: tabs.length, vsync: this);
             return Scaffold(
+              bottomSheet: count > 0
+                  ? Container(
+                      alignment: Alignment.center,
+                      height: 140.h,
+                      color: Colors.green,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(horizontal: 50.w),
+                      child: ListTile(
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => ShoppingCartPage())),
+                        contentPadding: EdgeInsets.zero,
+                        leading: Icon(Icons.shopping_cart, color: Colors.white),
+                        title: Text(
+                          "查看購物車",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 42.sp,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 2.sp,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        trailing: Text(
+                          "$count",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 42.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    )
+                  : null,
               body: NestedScrollView(
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
@@ -162,9 +264,52 @@ class _RestaurantPageState extends State<RestaurantPage>
   List<Widget> _buildTabsContext(BuildContext context, Map data) {
     List<Widget> result = [];
     for (Map categorie in data['categories']) {
-      result.add(RestaurantMenuList(products: categorie['products']));
+      result.add(
+        RestaurantMenuList(
+          products: categorie['products'],
+          onTap: _onItmeTapHandler,
+          id: data['id'],
+        ),
+      );
     }
     return result;
+  }
+
+  void _onItmeTapHandler(value) {
+    if (value == null) {
+      _checkCart();
+    } else
+      _addProductToCart(value);
+  }
+
+  void _addProductToCart(id) async {
+    try {
+      await _http.postJson(
+        "$_baseUrl/cart/add",
+        json.encode({
+          "restaurant_id": widget.id,
+          "product": {"id": id, "options": [], "count": 1}
+        }),
+      );
+      await _checkCart();
+    } catch (e) {
+      //Future.delayed(Duration(seconds: 3), () => _createCart());
+    }
+  }
+
+  Future<void> _checkCart() async {
+    try {
+      Response cart = await _http.getJsonData("$_baseUrl/cart");
+      count = 0;
+      if (cart.data[0]['products'].length > 0)
+        for (Map product in cart.data[0]['products']) {
+          count += product['count'];
+        }
+      setState(() {});
+    } catch (e) {
+      print("Check Cart Error!");
+      //Future.delayed(Duration(seconds: 3), () => _createCart());
+    }
   }
 
   @override
@@ -175,9 +320,8 @@ class _RestaurantPageState extends State<RestaurantPage>
 
   Future<Map> getdata() async {
     try {
-      String baseUrl = HttpService.baseUrl;
       Map restaurant =
-          (await _http.getJsonData("$baseUrl/restaurant/${widget.id}")).data;
+          (await _http.getJsonData("$_baseUrl/restaurant/${widget.id}")).data;
       return restaurant;
     } catch (e) {
       return null;

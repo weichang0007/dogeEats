@@ -10,7 +10,6 @@ class OptionMenu extends StatefulWidget {
 class _OptionMenuState extends State<OptionMenu> {
   List<Map> _radioButtonPool = [];
   List<Map> _checkBoxPool = [];
-  List<Widget> _item = [];
 
   List<Widget> _buildOption(BuildContext context) {
     List<Widget> result = [];
@@ -43,6 +42,7 @@ class _OptionMenuState extends State<OptionMenu> {
         ),
       );
     }
+    result.add(Divider());
     return result;
   }
 
@@ -63,6 +63,7 @@ class _OptionMenuState extends State<OptionMenu> {
         trailing: Text("+NT\$ ${checkBox['price'].toString()}"),
       ));
     }
+    result.add(Divider());
     return result;
   }
 
@@ -71,6 +72,8 @@ class _OptionMenuState extends State<OptionMenu> {
     super.didChangeDependencies();
     _radioButtonPool.clear();
     _checkBoxPool.clear();
+    widget.product['_radioButtonPool'] = _radioButtonPool;
+    widget.product['_checkBoxPool'] = _checkBoxPool;
     for (Map option in widget.product['options']) {
       if (option['option_type'].toString() == 'radio') {
         _radioButtonPool.add(
@@ -90,127 +93,5 @@ class _OptionMenuState extends State<OptionMenu> {
   @override
   Widget build(BuildContext context) {
     return ListView(children: _buildOption(context));
-    /*return Scaffold(
-        body: Column(
-      children: <Widget>[
-        Column(
-          children: <Widget>[
-            Divider(height: 30.0, color: Colors.white),
-            Row(
-              children: <Widget>[
-                Text(
-                  "　甜度選擇",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20.0,
-                  ),
-                ),
-              ],
-            ),
-            ListTile(
-              onTap: () => setState(() => _selectedNum = 0),
-              leading:Radio(
-                value: 0,
-                groupValue: _selectedNum,
-                onChanged: (v) => setState(() => _selectedNum = v),
-              ),
-              title: Text("正常糖"),
-              trailing: Text("+\$0",
-                style: TextStyle(
-                  color: Colors.black45,
-                ),),
-            ),
-            ListTile(
-              onTap: () => setState(() => _selectedNum = 1),
-              leading:Radio(
-                value: 1,
-                groupValue: _selectedNum,
-                onChanged: (v) => setState(() => _selectedNum = v),
-              ),
-              title: Text("少糖"),
-              trailing: Text("+\$0",
-                style: TextStyle(
-                  color: Colors.black45,
-                ),),
-            ),
-            ListTile(
-                onTap: () => setState(() => _selectedNum = 2),
-                leading:Radio(
-                  value: 2,
-                  groupValue: _selectedNum,
-                  onChanged: (v) => setState(() => _selectedNum = v),
-                ),
-                title: Text("半糖"),
-                trailing: Text("+\$0",
-                  style: TextStyle(
-                    color: Colors.black45,
-                  ),),
-                ),
-
-          ],
-        ),
-        Divider(height: 30.0, color: Colors.black87),
-        Row(
-          children: <Widget>[
-            Text(
-              "　加料選擇",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20.0,
-              ),
-            ),
-          ],
-        ),
-        ListTile(
-          onTap: () {
-            setState(() {
-              val1 = !val1;
-            });
-          },
-          leading: Checkbox(
-            value: val1,
-            onChanged: (bool value) {},
-          ),
-          title: Text("珍珠"),
-          trailing: Text("+\$0",
-            style: TextStyle(
-              color: Colors.black45,
-            ),
-          ),
-        ),
-        ListTile(
-          onTap: () {
-            setState(() {
-              val2 = !val2;
-            });
-          },
-          leading: Checkbox(
-            value: val2,
-            onChanged: (bool value) {},
-          ),
-          title: Text("椰果"),
-          trailing: Text("+\$0",
-            style: TextStyle(
-              color: Colors.black45,
-            ),),
-        ),
-        ListTile(
-          onTap: () {
-            setState(() {
-              val3 = !val3;
-            });
-          },
-          leading: Checkbox(
-            value: val3,
-            onChanged: (bool value) {},
-          ),
-          title: Text("玉米"),
-          trailing: Text("+\$0",
-            style: TextStyle(
-              color: Colors.black45,
-            ),),
-        ),
-      ],
-    ));*/
   }
 }

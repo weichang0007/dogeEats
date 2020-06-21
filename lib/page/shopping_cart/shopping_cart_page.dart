@@ -186,8 +186,12 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
     final titleStyle = TextStyle(color: Colors.black, fontSize: 40.sp);
     final List<Widget> orderDetail = [];
     for (Map order in orderList) {
-      orderDetail.add(_buildOrderDetailInfo(context, order['count'].toString(),
-          order['name'], order['option'], order['price'].toString()));
+      orderDetail.add(_buildOrderDetailInfo(
+          context,
+          order['count'].toString(),
+          order['name'].toString(),
+          order['option'].toString(),
+          order['price'].toString()));
       orderDetail.add(Divider());
     }
     return Container(
@@ -213,7 +217,9 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
     final subTitleStyle = TextStyle(color: Colors.black, fontSize: 36.sp);
     final subTitleStyle2 = TextStyle(color: Colors.grey[500], fontSize: 38.sp);
     final subTotal = int.parse(count) * int.parse(price);
-    option = option.substring(0, option.length - 1);
+    if (option.length > 0) {
+      option = option.substring(0, option.length - 1);
+    }
     return ListTile(
       contentPadding: EdgeInsets.fromLTRB(10.w, 0, 10.w, 0),
       title: Row(
