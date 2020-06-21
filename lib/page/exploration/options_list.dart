@@ -95,66 +95,65 @@ class _OptionMenuState extends State<OptionMenu> {
       children: <Widget>[
         Column(
           children: <Widget>[
-            RadioListTile<int>(
-              value: 0,
-              title: Text('正常糖'),
-              groupValue: _selectedNum,
-              onChanged: (value) {
-                setState(() {
-                  _selectedNum = value;
-                });
-              },
+            Divider(height: 30.0, color: Colors.white),
+            Row(
+              children: <Widget>[
+                Text(
+                  "　甜度選擇",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20.0,
+                  ),
+                ),
+              ],
             ),
-            RadioListTile<int>(
-              value: 1,
-              title: Text('少糖'),
-              groupValue: _selectedNum,
-              onChanged: (value) {
-                setState(() {
-                  _selectedNum = value;
-                });
-              },
-            ),
-            RadioListTile<int>(
-              value: 2,
-              title: Text('半糖'),
-              groupValue: _selectedNum,
-              onChanged: (value) {
-                setState(() {
-                  _selectedNum = value;
-                });
-              },
-            ),
-/*
-*             ListTile(
-              onTap: (){
-                setState(() {
-                  val1 = !val1;
-                });
-              },
-              leading:
-              Checkbox(
-                value: val1,
-                onChanged: (bool value) {
-
-                },
+            ListTile(
+              onTap: () => setState(() => _selectedNum = 0),
+              leading:Radio(
+                value: 0,
+                groupValue: _selectedNum,
+                onChanged: (v) => setState(() => _selectedNum = v),
               ),
-              title: Text("珍珠"),
-              trailing: Text("+\$0"),
+              title: Text("正常糖"),
+              trailing: Text("+\$0",
+                style: TextStyle(
+                  color: Colors.black45,
+                ),),
             ),
-*
-*
-*
-*
-*
-* */
+            ListTile(
+              onTap: () => setState(() => _selectedNum = 1),
+              leading:Radio(
+                value: 1,
+                groupValue: _selectedNum,
+                onChanged: (v) => setState(() => _selectedNum = v),
+              ),
+              title: Text("少糖"),
+              trailing: Text("+\$0",
+                style: TextStyle(
+                  color: Colors.black45,
+                ),),
+            ),
+            ListTile(
+                onTap: () => setState(() => _selectedNum = 2),
+                leading:Radio(
+                  value: 2,
+                  groupValue: _selectedNum,
+                  onChanged: (v) => setState(() => _selectedNum = v),
+                ),
+                title: Text("半糖"),
+                trailing: Text("+\$0",
+                  style: TextStyle(
+                    color: Colors.black45,
+                  ),),
+                ),
+
           ],
         ),
         Divider(height: 30.0, color: Colors.black87),
         Row(
           children: <Widget>[
             Text(
-              "加料選擇",
+              "　加料選擇",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 20.0,
@@ -173,7 +172,11 @@ class _OptionMenuState extends State<OptionMenu> {
             onChanged: (bool value) {},
           ),
           title: Text("珍珠"),
-          trailing: Text("+\$0"),
+          trailing: Text("+\$0",
+            style: TextStyle(
+              color: Colors.black45,
+            ),
+          ),
         ),
         ListTile(
           onTap: () {
@@ -186,7 +189,10 @@ class _OptionMenuState extends State<OptionMenu> {
             onChanged: (bool value) {},
           ),
           title: Text("椰果"),
-          trailing: Text("+\$0"),
+          trailing: Text("+\$0",
+            style: TextStyle(
+              color: Colors.black45,
+            ),),
         ),
         ListTile(
           onTap: () {
@@ -199,7 +205,10 @@ class _OptionMenuState extends State<OptionMenu> {
             onChanged: (bool value) {},
           ),
           title: Text("玉米"),
-          trailing: Text("+\$0"),
+          trailing: Text("+\$0",
+            style: TextStyle(
+              color: Colors.black45,
+            ),),
         ),
       ],
     ));*/
