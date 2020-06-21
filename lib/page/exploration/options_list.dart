@@ -2,11 +2,12 @@ part of 'options_page.dart';
 
 
 class OptionMenu extends StatefulWidget {
+  final Map product;
+  const OptionMenu({Key key, this.product}) : super(key: key);
   @override
   State<OptionMenu> createState() => _OptionMenuState();
 }
 
-// TODO: 實作與接入我的探索
 class _OptionMenuState extends State<OptionMenu> {
   bool val1 = false;
   bool val2 = false;

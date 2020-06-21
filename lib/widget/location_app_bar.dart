@@ -1,7 +1,6 @@
 import 'package:dogeeats/model/models.dart';
 import 'package:dogeeats/page/location_picker/location_picker_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LocationAppBar extends StatefulWidget implements PreferredSizeWidget {
   LocationAppBar({Key key})

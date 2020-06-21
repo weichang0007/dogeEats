@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class RestaurantMenu extends StatefulWidget {
   final String url;
@@ -57,7 +58,6 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                     alignment: Alignment.centerLeft,
                     child: Text(widget.name, style: _titleStyle),
                   ),
-
                   Container(
                     margin: EdgeInsets.fromLTRB(26.w, 0, 0, 10.h),
                     alignment: Alignment.centerLeft,
@@ -68,30 +68,28 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                     alignment: Alignment.centerLeft,
                     child: Text("${widget.price}TWD ", style: _chipTextStyle),
                   ),
-              ],
-
+                ],
               ),
             ),
           ),
           Expanded(
             flex: 1,
             child: Container(
-              child:SizedBox(
-                width: widget.width,
-                height: 90.0,
-                child: Image.network(widget.url, fit: BoxFit.cover),
+              height: widget.height,
+              child: FadeInImage.memoryNetwork(
+                fit: BoxFit.cover,
+                placeholder: kTransparentImage,
+                image: widget.url ??
+                    "https://visualsound.com/wp-content/uploads/2019/05/unavailable-image.jpg",
               ),
             ),
           ),
         ],
       ),
     );
-    return Card(
-      margin: EdgeInsets.fromLTRB(30.w, 30.h, 30.w, 30.h),
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(6)),
-      ),
+    return Container(
+      color: Colors.white,
+      margin: EdgeInsets.fromLTRB(30.w, 0.h, 30.w, 0.h),
       child: content,
     );
   }
