@@ -1,7 +1,5 @@
 part of 'options_page.dart';
 
-enum CustomNum { a, b, c }
-
 class OptionMenu extends StatefulWidget {
   final Map product;
   const OptionMenu({Key key, this.product}) : super(key: key);
@@ -10,14 +8,89 @@ class OptionMenu extends StatefulWidget {
 }
 
 class _OptionMenuState extends State<OptionMenu> {
-  bool val1 = false;
-  bool val2 = false;
-  bool val3 = false;
-  int _selectedNum = 0;
+  List<Map> _radioButtonPool = [];
+  List<Map> _checkBoxPool = [];
+  List<Widget> _item = [];
+
+  List<Widget> _buildOption(BuildContext context) {
+    List<Widget> result = [];
+    for (Map option in widget.product['options']) {
+      if (option['option_type'].toString() == 'radio') {
+        result.addAll(_buildRadioOption(context, option));
+      } else if (option['option_type'].toString() == 'checkbox') {
+        result.addAll(_buildCheckOption(context, option));
+      }
+    }
+    return result;
+  }
+
+  List<Widget> _buildRadioOption(BuildContext context, Map option) {
+    Map valueReference = _radioButtonPool
+        .firstWhere((radio) => radio['option_id'] == option['id']);
+    List<Widget> result = [ListTile(title: Text(option['name']))];
+    for (Map radio in option['details']) {
+      result.add(
+        ListTile(
+          onTap: () => setState(() => valueReference['value'] = radio['id']),
+          leading: Radio(
+            value: radio['id'],
+            groupValue: valueReference['value'],
+            onChanged: (value) =>
+                setState(() => valueReference['value'] = value),
+          ),
+          title: Text(radio['option']),
+          trailing: Text("+NT\$ ${radio['price'].toString()}"),
+        ),
+      );
+    }
+    return result;
+  }
+
+  List<Widget> _buildCheckOption(BuildContext context, Map option) {
+    List<Widget> result = [ListTile(title: Text(option['name']))];
+    for (Map checkBox in option['details']) {
+      Map valueReference = _checkBoxPool.firstWhere((check) =>
+          check['option_id'] == option['id'] && check['id'] == checkBox['id']);
+      result.add(ListTile(
+        onTap: null,
+        leading: Checkbox(
+          value: valueReference['value'],
+          onChanged: (value) => setState(
+            () => valueReference['value'] = value,
+          ),
+        ),
+        title: Text(checkBox['option']),
+        trailing: Text("+NT\$ ${checkBox['price'].toString()}"),
+      ));
+    }
+    return result;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _radioButtonPool.clear();
+    _checkBoxPool.clear();
+    for (Map option in widget.product['options']) {
+      if (option['option_type'].toString() == 'radio') {
+        _radioButtonPool.add(
+            {"option_id": option['id'], "value": option['details'][0]['id']});
+      } else if (option['option_type'].toString() == 'checkbox') {
+        for (Map checkBox in option['details']) {
+          _checkBoxPool.add({
+            "option_id": option['id'],
+            "id": checkBox['id'],
+            "value": false,
+          });
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ListView(children: _buildOption(context));
+    /*return Scaffold(
         body: Column(
       children: <Widget>[
         Column(
@@ -129,6 +202,6 @@ class _OptionMenuState extends State<OptionMenu> {
           trailing: Text("+\$0"),
         ),
       ],
-    ));
+    ));*/
   }
 }
