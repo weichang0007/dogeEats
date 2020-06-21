@@ -212,6 +212,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
     final titleStyle = TextStyle(color: Colors.grey[800], fontSize: 38.sp);
     final subTitleStyle = TextStyle(color: Colors.black, fontSize: 36.sp);
     final subTitleStyle2 = TextStyle(color: Colors.grey[500], fontSize: 38.sp);
+    final subTotal = int.parse(count) * int.parse(price);
     option = option.substring(0, option.length - 1);
     return ListTile(
       contentPadding: EdgeInsets.fromLTRB(10.w, 0, 10.w, 0),
@@ -237,7 +238,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
         padding: EdgeInsets.fromLTRB(98.w, 0, 0, 0),
         child: Text(option, style: subTitleStyle2),
       ),
-      trailing: Text("NT\$$price", style: titleStyle),
+      trailing: Text("NT\$$subTotal", style: titleStyle),
     );
   }
 
@@ -322,16 +323,17 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
       List<Map> orderList = [];
       for (Map item in cartList['products']) {
         Map product = products
-            .where((element) => element['id'] == item['id'])
+            .where((element) => element['id'] == item['product_id'])
             .toList()[0];
         String optionSting = "";
         for (Map option in item['options']) {
           optionSting += (option['option_name'] as Map)['name'] + "、";
         }
-        total += 1 * int.parse(product['price'].toString());
+        total += int.parse(item['count'].toString()) *
+            int.parse(product['price'].toString());
         orderList.add({
           "name": product['name'],
-          "count": 1,
+          "count": item['count'],
           "option": optionSting,
           "price": product['price'],
         });

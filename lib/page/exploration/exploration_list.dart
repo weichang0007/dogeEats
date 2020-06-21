@@ -111,7 +111,13 @@ class _IndexSearchState extends State<IndexSearch> {
             child: InkWell(
               child: list[index - 1],
               onTap: () {
-                Navigator.pushNamed(context, "/restaurant");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        RestaurantPage(id: list[index - 1].id.toString()),
+                  ),
+                );
               },
             ),
           );

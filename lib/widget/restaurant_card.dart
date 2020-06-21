@@ -5,6 +5,7 @@ import 'package:dogeeats/service/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:like_button/like_button.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class RestaurantCard extends StatefulWidget {
   final int id;
@@ -65,9 +66,9 @@ class _RestaurantCardState extends State<RestaurantCard> {
           Container(
             width: double.infinity,
             height: widget.height / 1.8,
-            child: FadeInImage.assetNetwork(
+            child: FadeInImage.memoryNetwork(
               fit: BoxFit.cover,
-              placeholder: "assets/images/image_unavailable.png",
+              placeholder: kTransparentImage,
               image:
                   "https://visualsound.com/wp-content/uploads/2019/05/unavailable-image.jpg",
             ),
