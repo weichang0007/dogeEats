@@ -1,0 +1,748 @@
+@startuml
+set namespaceSeparator ::
+
+class "dogeeats::bloc::appbar_bloc::appbar_bloc.dart::AppbarBloc" {
+  +AppbarState initialState
+  +Stream mapEventToState()
+}
+
+"dogeeats::bloc::appbar_bloc::appbar_bloc.dart::AppbarBloc" o-- "dogeeats::bloc::appbar_bloc::appbar_bloc.dart::AppbarState"
+"bloc::src::bloc.dart::Bloc<Event, State>" <|-- "dogeeats::bloc::appbar_bloc::appbar_bloc.dart::AppbarBloc"
+
+abstract class "dogeeats::bloc::appbar_bloc::appbar_bloc.dart::AppbarEvent" {
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "dogeeats::bloc::appbar_bloc::appbar_bloc.dart::AppbarEvent"
+
+class "dogeeats::bloc::appbar_bloc::appbar_bloc.dart::ModifyAppbarEvent" {
+  -Widget _appbar
+  +List<Object> props
+}
+
+"dogeeats::bloc::appbar_bloc::appbar_bloc.dart::ModifyAppbarEvent" o-- "flutter::src::widgets::framework.dart::Widget"
+"dogeeats::bloc::appbar_bloc::appbar_bloc.dart::AppbarEvent" <|-- "dogeeats::bloc::appbar_bloc::appbar_bloc.dart::ModifyAppbarEvent"
+
+abstract class "dogeeats::bloc::appbar_bloc::appbar_bloc.dart::AppbarState" {
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "dogeeats::bloc::appbar_bloc::appbar_bloc.dart::AppbarState"
+
+class "dogeeats::bloc::appbar_bloc::appbar_bloc.dart::AppbarInitial" {
+  +List<Object> props
+}
+
+"dogeeats::bloc::appbar_bloc::appbar_bloc.dart::AppbarState" <|-- "dogeeats::bloc::appbar_bloc::appbar_bloc.dart::AppbarInitial"
+
+class "dogeeats::bloc::appbar_bloc::appbar_bloc.dart::AppbarModify" {
+  -Widget _appbar
+  +List<Object> props
+}
+
+"dogeeats::bloc::appbar_bloc::appbar_bloc.dart::AppbarModify" o-- "flutter::src::widgets::framework.dart::Widget"
+"dogeeats::bloc::appbar_bloc::appbar_bloc.dart::AppbarState" <|-- "dogeeats::bloc::appbar_bloc::appbar_bloc.dart::AppbarModify"
+
+class "dogeeats::bloc::login_bloc::login_bloc.dart::LoginBloc" {
+  -LoginService _service
+  +LoginState initialState
+  +Stream mapEventToState()
+}
+
+"dogeeats::bloc::login_bloc::login_bloc.dart::LoginBloc" o-- "dogeeats::service::login_service.dart::LoginService"
+"dogeeats::bloc::login_bloc::login_bloc.dart::LoginBloc" o-- "dogeeats::bloc::login_bloc::login_bloc.dart::LoginState"
+"bloc::src::bloc.dart::Bloc<Event, State>" <|-- "dogeeats::bloc::login_bloc::login_bloc.dart::LoginBloc"
+
+abstract class "dogeeats::bloc::login_bloc::login_bloc.dart::LoginEvent" {
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "dogeeats::bloc::login_bloc::login_bloc.dart::LoginEvent"
+
+class "dogeeats::bloc::login_bloc::login_bloc.dart::LoginButtonClickEvent" {
+  +String email
+  +String password
+  +List<Object> props
+}
+
+"dogeeats::bloc::login_bloc::login_bloc.dart::LoginEvent" <|-- "dogeeats::bloc::login_bloc::login_bloc.dart::LoginButtonClickEvent"
+
+abstract class "dogeeats::bloc::login_bloc::login_bloc.dart::LoginState" {
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "dogeeats::bloc::login_bloc::login_bloc.dart::LoginState"
+
+class "dogeeats::bloc::login_bloc::login_bloc.dart::LoginInitial" {
+  +List<Object> props
+}
+
+"dogeeats::bloc::login_bloc::login_bloc.dart::LoginState" <|-- "dogeeats::bloc::login_bloc::login_bloc.dart::LoginInitial"
+
+class "dogeeats::bloc::login_bloc::login_bloc.dart::LoginWaiting" {
+  +List<Object> props
+}
+
+"dogeeats::bloc::login_bloc::login_bloc.dart::LoginState" <|-- "dogeeats::bloc::login_bloc::login_bloc.dart::LoginWaiting"
+
+class "dogeeats::bloc::login_bloc::login_bloc.dart::LoginFailed" {
+  +String message
+  +List<Object> props
+}
+
+"dogeeats::bloc::login_bloc::login_bloc.dart::LoginState" <|-- "dogeeats::bloc::login_bloc::login_bloc.dart::LoginFailed"
+
+class "dogeeats::bloc::login_bloc::login_bloc.dart::LoginSucceeded" {
+  +String response
+  +List<Object> props
+}
+
+"dogeeats::bloc::login_bloc::login_bloc.dart::LoginState" <|-- "dogeeats::bloc::login_bloc::login_bloc.dart::LoginSucceeded"
+
+class "dogeeats::bloc::register_bloc::register_bloc.dart::RegisterBloc" {
+  -RegisterService _service
+  +RegisterState initialState
+  +Stream mapEventToState()
+}
+
+"dogeeats::bloc::register_bloc::register_bloc.dart::RegisterBloc" o-- "dogeeats::service::register_service.dart::RegisterService"
+"dogeeats::bloc::register_bloc::register_bloc.dart::RegisterBloc" o-- "dogeeats::bloc::register_bloc::register_bloc.dart::RegisterState"
+"bloc::src::bloc.dart::Bloc<Event, State>" <|-- "dogeeats::bloc::register_bloc::register_bloc.dart::RegisterBloc"
+
+abstract class "dogeeats::bloc::register_bloc::register_bloc.dart::RegisterEvent" {
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "dogeeats::bloc::register_bloc::register_bloc.dart::RegisterEvent"
+
+class "dogeeats::bloc::register_bloc::register_bloc.dart::RegisterButtonClickEvent" {
+  +String name
+  +String email
+  +String password
+  +List<Object> props
+}
+
+"dogeeats::bloc::register_bloc::register_bloc.dart::RegisterEvent" <|-- "dogeeats::bloc::register_bloc::register_bloc.dart::RegisterButtonClickEvent"
+
+abstract class "dogeeats::bloc::register_bloc::register_bloc.dart::RegisterState" {
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "dogeeats::bloc::register_bloc::register_bloc.dart::RegisterState"
+
+class "dogeeats::bloc::register_bloc::register_bloc.dart::RegisterInitial" {
+  +List<Object> props
+}
+
+"dogeeats::bloc::register_bloc::register_bloc.dart::RegisterState" <|-- "dogeeats::bloc::register_bloc::register_bloc.dart::RegisterInitial"
+
+class "dogeeats::bloc::register_bloc::register_bloc.dart::RegisterWaiting" {
+  +List<Object> props
+}
+
+"dogeeats::bloc::register_bloc::register_bloc.dart::RegisterState" <|-- "dogeeats::bloc::register_bloc::register_bloc.dart::RegisterWaiting"
+
+class "dogeeats::bloc::register_bloc::register_bloc.dart::RegisterFailed" {
+  +String message
+  +List<Object> props
+}
+
+"dogeeats::bloc::register_bloc::register_bloc.dart::RegisterState" <|-- "dogeeats::bloc::register_bloc::register_bloc.dart::RegisterFailed"
+
+class "dogeeats::bloc::register_bloc::register_bloc.dart::RegisterSucceeded" {
+  +List<Object> props
+}
+
+"dogeeats::bloc::register_bloc::register_bloc.dart::RegisterState" <|-- "dogeeats::bloc::register_bloc::register_bloc.dart::RegisterSucceeded"
+
+class "dogeeats::main.dart::UnsafeHttpOverrides" {
+  +HttpClient createHttpClient()
+}
+
+"dart::_http::HttpOverrides" <|-- "dogeeats::main.dart::UnsafeHttpOverrides"
+
+class "dogeeats::main.dart::DogeEatsApp" {
+  {static} +ThemeData theme
+  +MaterialApp coustomerApp
+  +Widget build()
+}
+
+"dogeeats::main.dart::DogeEatsApp" o-- "flutter::src::material::theme_data.dart::ThemeData"
+"dogeeats::main.dart::DogeEatsApp" o-- "flutter::src::material::app.dart::MaterialApp"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "dogeeats::main.dart::DogeEatsApp"
+
+class "dogeeats::model::setting.dart::Setting" {
+  {static} -Setting _instance
+  +String name
+  +String email
+  +String passwd
+  +String token
+  +String address
+  +double latitude
+  +double longitude
+  +bool hasSetLocation
+  {static} +Future<Setting> instance
+  {static} +Future save()
+  {static} +Future claen()
+  +Map toJson()
+}
+
+"dogeeats::model::setting.dart::Setting" o-- "dogeeats::model::setting.dart::Setting"
+
+class "dogeeats::page::advert::advert_page.dart::AdvertPage" {
+  -void _modifyAppbar()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "dogeeats::page::advert::advert_page.dart::AdvertPage"
+
+class "dogeeats::page::advert::advert_page.dart::IndexCarousel" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::page::advert::advert_page.dart::IndexCarousel"
+
+class "dogeeats::page::advert::advert_page.dart::_IndexCarouselState" {
+  -List<FadeInImage> _images
+  -int _current
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::page::advert::advert_page.dart::_IndexCarouselState"
+
+class "dogeeats::page::advert::advert_page.dart::IndexFavorite" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::page::advert::advert_page.dart::IndexFavorite"
+
+class "dogeeats::page::advert::advert_page.dart::_IndexFavoriteState" {
+  +Future future
+  -HttpService _http
+  +Widget build()
+  +void didChangeDependencies()
+  -FutureBuilder _buildFutureBuilder()
+  -Widget _buildListView()
+  +Future getdata()
+  +void onLikeChecged()
+  +Future refresh()
+}
+
+"dogeeats::page::advert::advert_page.dart::_IndexFavoriteState" o-- "dogeeats::service::http_service.dart::HttpService"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::page::advert::advert_page.dart::_IndexFavoriteState"
+
+class "dogeeats::page::exploration::exploration_page.dart::ExplorationPage" {
+  -void _modifyAppbar()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "dogeeats::page::exploration::exploration_page.dart::ExplorationPage"
+
+class "dogeeats::page::exploration::exploration_page.dart::IndexSearch" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::page::exploration::exploration_page.dart::IndexSearch"
+
+class "dogeeats::page::exploration::exploration_page.dart::_IndexSearchState" {
+  -TextEditingController _controller
+  -Future _future
+  -HttpService _http
+  +Widget build()
+  +void didChangeDependencies()
+  -FutureBuilder _buildFutureBuilder()
+  -Widget _buildListView()
+  +Future getdata()
+  +Future refresh()
+}
+
+"dogeeats::page::exploration::exploration_page.dart::_IndexSearchState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"dogeeats::page::exploration::exploration_page.dart::_IndexSearchState" o-- "dogeeats::service::http_service.dart::HttpService"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::page::exploration::exploration_page.dart::_IndexSearchState"
+
+class "dogeeats::page::exploration::options_page.dart::OptionPage" {
+  +int id
+  +Map product
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::page::exploration::options_page.dart::OptionPage"
+
+class "dogeeats::page::exploration::options_page.dart::_OptionPageState" {
+  -HttpService _http
+  -String _baseUrl
+  -void _addCount()
+  -void _subCount()
+  -void _addProductToCart()
+  +void initState()
+  +Widget build()
+}
+
+"dogeeats::page::exploration::options_page.dart::_OptionPageState" o-- "dogeeats::service::http_service.dart::HttpService"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::page::exploration::options_page.dart::_OptionPageState"
+
+class "dogeeats::page::exploration::options_page.dart::OptionMenu" {
+  +Map product
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::page::exploration::options_page.dart::OptionMenu"
+
+class "dogeeats::page::exploration::options_page.dart::_OptionMenuState" {
+  -List<Map> _radioButtonPool
+  -List<Map> _checkBoxPool
+  -List _buildOption()
+  -List _buildRadioOption()
+  -List _buildCheckOption()
+  +void didChangeDependencies()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::page::exploration::options_page.dart::_OptionMenuState"
+
+class "dogeeats::page::exploration::restaurant_page.dart::RestaurantPage" {
+  +String id
+  +_RestaurantPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::page::exploration::restaurant_page.dart::RestaurantPage"
+
+class "dogeeats::page::exploration::restaurant_page.dart::_RestaurantPageState" {
+  +int count
+  -TabController _tabController
+  +Future future
+  -HttpService _http
+  -String _baseUrl
+  +void initState()
+  -void _checkCartAndCreate()
+  -Future _createCart()
+  +void dispose()
+  +void didChangeDependencies()
+  -void _modifyAppbar()
+  -FutureBuilder _buildFutureBuilder()
+  -List _buildTabs()
+  -List _buildTabsContext()
+  -void _onItmeTapHandler()
+  -void _addProductToCart()
+  -Future _checkCart()
+  +Widget build()
+  +Future getdata()
+  +Future refresh()
+}
+
+"dogeeats::page::exploration::restaurant_page.dart::_RestaurantPageState" o-- "flutter::src::material::tab_controller.dart::TabController"
+"dogeeats::page::exploration::restaurant_page.dart::_RestaurantPageState" o-- "dogeeats::service::http_service.dart::HttpService"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::page::exploration::restaurant_page.dart::_RestaurantPageState"
+"flutter::src::widgets::ticker_provider.dart::TickerProviderStateMixin<T>" <|-- "dogeeats::page::exploration::restaurant_page.dart::_RestaurantPageState"
+
+class "dogeeats::page::exploration::restaurant_page.dart::_SliverAppBarDelegate" {
+  -TabBar _tabBar
+  +double minExtent
+  +double maxExtent
+  +Widget build()
+  +bool shouldRebuild()
+}
+
+"dogeeats::page::exploration::restaurant_page.dart::_SliverAppBarDelegate" o-- "flutter::src::material::tabs.dart::TabBar"
+"flutter::src::widgets::sliver_persistent_header.dart::SliverPersistentHeaderDelegate" <|-- "dogeeats::page::exploration::restaurant_page.dart::_SliverAppBarDelegate"
+
+class "dogeeats::page::exploration::restaurant_page.dart::RestaurantMenuList" {
+  +int id
+  +List products
+  +dynamic Function(dynamic) onTap
+  +State createState()
+}
+
+"dogeeats::page::exploration::restaurant_page.dart::RestaurantMenuList" o-- "dogeeats::page::exploration::restaurant_page.dart::dynamic Function(dynamic)"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::page::exploration::restaurant_page.dart::RestaurantMenuList"
+
+class "dogeeats::page::exploration::restaurant_page.dart::_RestaurantMenuListState" {
+  -List<Widget> _item
+  +void didChangeDependencies()
+  -void _buildItem()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::page::exploration::restaurant_page.dart::_RestaurantMenuListState"
+
+class "dogeeats::page::home::home_page.dart::HomePage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "dogeeats::page::home::home_page.dart::HomePage"
+
+class "dogeeats::page::home::home_page.dart::HomeNavigation" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::page::home::home_page.dart::HomeNavigation"
+
+class "dogeeats::page::home::home_page.dart::_HomeNavigationState" {
+  -GlobalKey<ScaffoldState> _scaffoldkey
+  -List<Widget> _pages
+  -List<BottomNavigationBarItem> _navigationButtons
+  -PreferredSizeWidget _appbar
+  -int _index
+  -void _screenInit()
+  +Widget build()
+}
+
+"dogeeats::page::home::home_page.dart::_HomeNavigationState" o-- "flutter::src::widgets::framework.dart::GlobalKey<ScaffoldState>"
+"dogeeats::page::home::home_page.dart::_HomeNavigationState" o-- "flutter::src::widgets::preferred_size.dart::PreferredSizeWidget"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::page::home::home_page.dart::_HomeNavigationState"
+
+class "dogeeats::page::location_picker::location_picker_page.dart::LocationPickerPage" {
+  +_LocationPickerPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::page::location_picker::location_picker_page.dart::LocationPickerPage"
+
+class "dogeeats::page::location_picker::location_picker_page.dart::_LocationPickerPageState" {
+  +String apk
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::page::location_picker::location_picker_page.dart::_LocationPickerPageState"
+
+class "dogeeats::page::login::login_page.dart::LoginPage" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::page::login::login_page.dart::LoginPage"
+
+class "dogeeats::page::login::login_page.dart::_LoginPageState" {
+  -GlobalKey<FormState> _registerFormKey
+  -String _email
+  -String _password
+  -bool _passwordVisible
+  -bool _hasCheckLoginStatus
+  +void initState()
+  -void _screenInit()
+  -Future _checkLoginStatus()
+  +Widget build()
+  -List _buildFormWidget()
+  -Widget _buildEmailInput()
+  -Widget _buildPasswordInput()
+  -String _validEmail()
+  -Widget _buildActionButton()
+  -void _setAccount()
+  -void _setPassword()
+  -String _valid()
+  -void _submit()
+  -void _loginMessageHandler()
+  -void _showLoginSuccessMessage()
+  -void _showLoginWaitingMessage()
+  -void _showLoginFailedMessage()
+}
+
+"dogeeats::page::login::login_page.dart::_LoginPageState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::page::login::login_page.dart::_LoginPageState"
+
+class "dogeeats::page::order::order_list_page.dart::OrderListPage" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::page::order::order_list_page.dart::OrderListPage"
+
+class "dogeeats::page::order::order_list_page.dart::_OrderListPageState" {
+  -void _modifyAppbar()
+  +Widget build()
+  -Widget _buildHistoryPage()
+  -Widget _buildCurrentPage()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::page::order::order_list_page.dart::_OrderListPageState"
+
+class "dogeeats::page::profile::profile_page.dart::ProfilePage" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::page::profile::profile_page.dart::ProfilePage"
+
+class "dogeeats::page::profile::profile_page.dart::_ProfilePageState" {
+  -String _version
+  -Setting _setting
+  -bool _loading
+  +void didChangeDependencies()
+  -void _loadSetting()
+  -void _modifyAppbar()
+  +Widget build()
+  -Widget _buildAvatar()
+  -Widget _buildMenu()
+  -Widget _buildOptionIcon()
+  -void _showClearSettingDialog()
+  -void _launchFormURL()
+}
+
+"dogeeats::page::profile::profile_page.dart::_ProfilePageState" o-- "dogeeats::model::setting.dart::Setting"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::page::profile::profile_page.dart::_ProfilePageState"
+
+class "dogeeats::page::register::register_page.dart::RegisterPage" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::page::register::register_page.dart::RegisterPage"
+
+class "dogeeats::page::register::register_page.dart::_RegisterPageState" {
+  -GlobalKey<FormState> _registerFormKey
+  -String _fullName
+  -String _email
+  -String _password
+  -bool _passwordVisible
+  -void _screenInit()
+  +Widget build()
+  -List _buildFormWidget()
+  -Widget _buildFullNameInput()
+  -Widget _buildEmailInput()
+  -Widget _buildPasswordInput()
+  -Widget _buildPasswordConfirmInput()
+  -Widget _buildActionButton()
+  -void _setFullName()
+  -void _setAccount()
+  -void _setPassword()
+  -String _valid()
+  -String _validConfirmPassword()
+  -String _validEmail()
+  -void _submit()
+  -void _registerMessageHandler()
+  -void _showLoginSuccessMessage()
+  -void _showLoginWaitingMessage()
+  -void _showLoginFailedMessage()
+}
+
+"dogeeats::page::register::register_page.dart::_RegisterPageState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::page::register::register_page.dart::_RegisterPageState"
+
+class "dogeeats::page::shopping_cart::shopping_cart_page.dart::ShoppingCartPage" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::page::shopping_cart::shopping_cart_page.dart::ShoppingCartPage"
+
+class "dogeeats::page::shopping_cart::shopping_cart_page.dart::_ShoppingCartPageState" {
+  +int total
+  +int rid
+  +Future future
+  -HttpService _http
+  -bool _switchState
+  -CreditCardModel _creditCardModel
+  -void _modifyAppbar()
+  +void didChangeDependencies()
+  -FutureBuilder _buildFutureBuilder()
+  +Widget build()
+  -Widget _buildStoreInfo()
+  -Future _buildAddressInfo()
+  -Widget _buildTablewareInfo()
+  -Widget _buildOrderDetail()
+  -Widget _buildOrderDetailInfo()
+  -Widget _buildOrderTotal()
+  -Widget _buildPaymentMethod()
+  +Future getdata()
+  -List _getRestaurantProducts()
+  +Future refresh()
+}
+
+"dogeeats::page::shopping_cart::shopping_cart_page.dart::_ShoppingCartPageState" o-- "dogeeats::service::http_service.dart::HttpService"
+"dogeeats::page::shopping_cart::shopping_cart_page.dart::_ShoppingCartPageState" o-- "flutter_credit_card::credit_card_model.dart::CreditCardModel"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::page::shopping_cart::shopping_cart_page.dart::_ShoppingCartPageState"
+
+class "dogeeats::parser::restaurant_parser.dart::RestaurantParser" {
+  {static} +List fromJsonArray()
+  {static} +RestaurantCard fromJson()
+}
+
+class "dogeeats::service::http_service.dart::HttpService" {
+  {static} +String baseUrl
+  {static} -HttpService _instance
+  -PersistCookieJar _cookieJar
+  -Dio _dio
+  {static} +HttpService instance
+  +Future<PersistCookieJar> cookieManager
+  +Future<Dio> client
+  +Future getByte()
+  +Future getData()
+  +Future getJsonData()
+  +Future postEmpty()
+  +Future postForm()
+  +Future postJson()
+  +Future deleteEmpty()
+  +Future clearCookie()
+  +Future resetClient()
+}
+
+"dogeeats::service::http_service.dart::HttpService" o-- "dogeeats::service::http_service.dart::HttpService"
+"dogeeats::service::http_service.dart::HttpService" o-- "cookie_jar::src::persist_cookie_jar.dart::PersistCookieJar"
+"dogeeats::service::http_service.dart::HttpService" o-- "dio::src::dio.dart::Dio"
+
+class "dogeeats::service::http_service.dart::HttpServiceException" {
+  +dynamic message
+  +String toString()
+}
+
+"dart::core::Exception" <|-- "dogeeats::service::http_service.dart::HttpServiceException"
+
+class "dogeeats::service::login_service.dart::LoginService" {
+  {static} -HttpService _http
+  +String baseUrl
+  +Future login()
+}
+
+"dogeeats::service::login_service.dart::LoginService" o-- "dogeeats::service::http_service.dart::HttpService"
+
+class "dogeeats::service::register_service.dart::RegisterService" {
+  {static} -HttpService _http
+  +String baseUrl
+  +Future register()
+}
+
+"dogeeats::service::register_service.dart::RegisterService" o-- "dogeeats::service::http_service.dart::HttpService"
+
+class "dogeeats::widget::credit_card_form.dart::CreditCardInputForm" {
+  +CreditCardModel creditCardModel
+  +State createState()
+}
+
+"dogeeats::widget::credit_card_form.dart::CreditCardInputForm" o-- "flutter_credit_card::credit_card_model.dart::CreditCardModel"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::widget::credit_card_form.dart::CreditCardInputForm"
+
+class "dogeeats::widget::credit_card_form.dart::_CreditCardInputFormState" {
+  +String cardNumber
+  +String expiryDate
+  +String cardHolderName
+  +String cvvCode
+  +bool isCvvFocused
+  +void initState()
+  +Widget build()
+  +void onCreditCardModelChange()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::widget::credit_card_form.dart::_CreditCardInputFormState"
+
+class "dogeeats::widget::credit_card_form.dart::CreditCardForm" {
+  +String cardNumber
+  +String expiryDate
+  +String cardHolderName
+  +String cvvCode
+  +void Function(CreditCardModel) onCreditCardModelChange
+  +Color themeColor
+  +Color textColor
+  +Color cursorColor
+  +_CreditCardFormState createState()
+}
+
+"dogeeats::widget::credit_card_form.dart::CreditCardForm" o-- "dogeeats::widget::credit_card_form.dart::void Function(CreditCardModel)"
+"dogeeats::widget::credit_card_form.dart::CreditCardForm" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::widget::credit_card_form.dart::CreditCardForm"
+
+class "dogeeats::widget::credit_card_form.dart::_CreditCardFormState" {
+  +String cardNumber
+  +String expiryDate
+  +String cardHolderName
+  +String cvvCode
+  +bool isCvvFocused
+  +Color themeColor
+  +void Function(CreditCardModel) onCreditCardModelChange
+  +CreditCardModel creditCardModel
+  -MaskedTextController _cardNumberController
+  -TextEditingController _expiryDateController
+  -TextEditingController _cardHolderNameController
+  -TextEditingController _cvvCodeController
+  +FocusNode cvvFocusNode
+  +void textFieldFocusDidChange()
+  +void createCreditCardModel()
+  +void initState()
+  +void didChangeDependencies()
+  +Widget build()
+}
+
+"dogeeats::widget::credit_card_form.dart::_CreditCardFormState" o-- "dart::ui::Color"
+"dogeeats::widget::credit_card_form.dart::_CreditCardFormState" o-- "dogeeats::widget::credit_card_form.dart::void Function(CreditCardModel)"
+"dogeeats::widget::credit_card_form.dart::_CreditCardFormState" o-- "flutter_credit_card::credit_card_model.dart::CreditCardModel"
+"dogeeats::widget::credit_card_form.dart::_CreditCardFormState" o-- "flutter_credit_card::credit_card_widget.dart::MaskedTextController"
+"dogeeats::widget::credit_card_form.dart::_CreditCardFormState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"dogeeats::widget::credit_card_form.dart::_CreditCardFormState" o-- "flutter::src::widgets::focus_manager.dart::FocusNode"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::widget::credit_card_form.dart::_CreditCardFormState"
+
+class "dogeeats::widget::location_app_bar.dart::LocationAppBar" {
+  +Size preferredSize
+  +State createState()
+}
+
+"dogeeats::widget::location_app_bar.dart::LocationAppBar" o-- "dart::ui::Size"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::widget::location_app_bar.dart::LocationAppBar"
+"flutter::src::widgets::preferred_size.dart::PreferredSizeWidget" <|-- "dogeeats::widget::location_app_bar.dart::LocationAppBar"
+
+class "dogeeats::widget::location_app_bar.dart::_LocationAppBarState" {
+  +String address
+  +void didChangeDependencies()
+  -void _loadSetting()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::widget::location_app_bar.dart::_LocationAppBarState"
+
+class "dogeeats::widget::order_info_card.dart::OrderInfoCard" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::widget::order_info_card.dart::OrderInfoCard"
+
+class "dogeeats::widget::order_info_card.dart::_OrderInfoCardState" {
+  +Widget build()
+  -Widget _buildOrderState()
+  -Widget _buildOrderDetail()
+  -Widget _buildOrderTotal()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::widget::order_info_card.dart::_OrderInfoCardState"
+
+class "dogeeats::widget::restaurant_card.dart::RestaurantCard" {
+  +int id
+  +String url
+  +double width
+  +double height
+  +String name
+  +String description
+  +String time
+  +String star
+  +String price
+  +String address
+  +int responseCount
+  +bool isLiked
+  +dynamic Function(bool) onLikeChenged
+  +State createState()
+}
+
+"dogeeats::widget::restaurant_card.dart::RestaurantCard" o-- "dogeeats::widget::restaurant_card.dart::dynamic Function(bool)"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::widget::restaurant_card.dart::RestaurantCard"
+
+class "dogeeats::widget::restaurant_card.dart::_RestaurantCardState" {
+  -TextStyle _titleStyle
+  -TextStyle _subTitleStyle
+  -TextStyle _chipTextStyle
+  +Widget build()
+  -Widget _buildFavoriteIconButton()
+}
+
+"dogeeats::widget::restaurant_card.dart::_RestaurantCardState" o-- "flutter::src::painting::text_style.dart::TextStyle"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::widget::restaurant_card.dart::_RestaurantCardState"
+
+class "dogeeats::widget::restaurant_menu.dart::RestaurantMenu" {
+  +String url
+  +double width
+  +double height
+  +String name
+  +String type
+  +String price
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "dogeeats::widget::restaurant_menu.dart::RestaurantMenu"
+
+class "dogeeats::widget::restaurant_menu.dart::_RestaurantMenuState" {
+  -TextStyle _titleStyle
+  -TextStyle _subTitleStyle
+  -TextStyle _chipTextStyle
+  +Widget build()
+}
+
+"dogeeats::widget::restaurant_menu.dart::_RestaurantMenuState" o-- "flutter::src::painting::text_style.dart::TextStyle"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "dogeeats::widget::restaurant_menu.dart::_RestaurantMenuState"
+
+
+@enduml
