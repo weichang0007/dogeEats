@@ -9,4 +9,5 @@ export './exploration/options_page.dart';
 export './profile/profile_page.dart';
 export './order/order_list_page.dart';
 export './shopping_cart/shopping_cart_page.dart';
-
+export './location_display/location_display.dart';
+export './delivery_home/delivery_home_page.dart';

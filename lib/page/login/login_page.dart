@@ -2,6 +2,7 @@ import 'package:dogeeats/bloc/blocs.dart';
 import 'package:dogeeats/model/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginPage extends StatefulWidget {
@@ -15,7 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _passwordVisible = true;
   bool _hasCheckLoginStatus = false;
 
-@override
+  @override
   void initState() {
     super.initState();
     _hasCheckLoginStatus = false;
@@ -32,9 +33,9 @@ class _LoginPageState extends State<LoginPage> {
     if (setting.token.isNotEmpty) {
       Navigator.of(context).pushReplacementNamed("/home");
     } else
-    setState(() {
-      _hasCheckLoginStatus = true;
-    });
+      setState(() {
+        _hasCheckLoginStatus = true;
+      });
   }
 
   @override
@@ -156,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
       _showLoginWaitingMessage(scaffold);
     else if (state is LoginSucceeded) {
       _showLoginSuccessMessage(scaffold);
-      _checkLoginStatus();
+      Phoenix.rebirth(context);
     }
   }
 
