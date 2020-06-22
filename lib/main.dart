@@ -1,5 +1,7 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'package:dogeeats/bloc/blocs.dart';
+import 'package:dogeeats/model/models.dart';
 import 'package:flutter/material.dart';
 import 'package:dogeeats/page/pages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +10,7 @@ import 'package:page_transition/page_transition.dart';
 
 void main() {
   HttpOverrides.global = UnsafeHttpOverrides();
-  runApp(DogeEatsApp());
+  runApp(Phoenix(child: DogeEatsApp()));
 }
 
 class UnsafeHttpOverrides extends HttpOverrides {
@@ -20,7 +22,27 @@ class UnsafeHttpOverrides extends HttpOverrides {
   }
 }
 
-class DogeEatsApp extends StatelessWidget {
+class DogeEatsApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => DogeEatsAppState();
+}
+
+class DogeEatsAppState extends State<DogeEatsApp> {
+  String modeFlag;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    modeFlag = null;
+    _loadSetting();
+  }
+
+  _loadSetting() async {
+    Setting setting = await Setting.instance;
+    modeFlag = setting.flag;
+    setState(() {});
+  }
+
   static final ThemeData theme = ThemeData.light().copyWith(
     brightness: Brightness.light,
     visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -106,23 +128,49 @@ class DogeEatsApp extends StatelessWidget {
     },
   );
 
+  final deliveryPersonApp = MaterialApp(
+    title: 'DogeEats - DeliveryMode',
+    theme: theme,
+    onGenerateRoute: (settings) {
+      switch (settings.name) {
+        case '/':
+          return PageTransition(
+            duration: Duration(milliseconds: 500),
+            child: LoginPage(),
+            type: PageTransitionType.fade,
+            settings: settings,
+          );
+          break;
+        case '/home':
+          return PageTransition(
+            duration: Duration(milliseconds: 500),
+            child: Scaffold(body: DeliveryHomePage()),
+            type: PageTransitionType.fade,
+            settings: settings,
+          );
+          break;
+        default:
+          return null;
+      }
+    },
+  );
+
   @override
   Widget build(BuildContext context) {
-    return Phoenix(
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<LoginBloc>(
-            create: (BuildContext context) => LoginBloc(),
-          ),
-          BlocProvider<RegisterBloc>(
-            create: (BuildContext context) => RegisterBloc(),
-          ),
-          BlocProvider<AppbarBloc>(
-            create: (BuildContext context) => AppbarBloc(),
-          ),
-        ],
-        child: coustomerApp,
-      ),
+    if (modeFlag == null) return MaterialApp(home: Scaffold(body: Center()));
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LoginBloc>(
+          create: (BuildContext context) => LoginBloc(),
+        ),
+        BlocProvider<RegisterBloc>(
+          create: (BuildContext context) => RegisterBloc(),
+        ),
+        BlocProvider<AppbarBloc>(
+          create: (BuildContext context) => AppbarBloc(),
+        ),
+      ],
+      child: modeFlag == "custom" ? coustomerApp : deliveryPersonApp,
     );
   }
 }

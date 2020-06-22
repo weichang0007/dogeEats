@@ -45,6 +45,9 @@ dependencies:
   flutter_credit_card:
   credit_card_number_validator:
   geolocator:
+  google_maps_flutter:
+  flutter_polyline_points:
+  location:
 
 
   cupertino_icons: ^0.1.3

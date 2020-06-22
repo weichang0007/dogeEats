@@ -185,6 +185,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
               child: Text("送餐位置資訊:", style: titleStyle),
             ),
             Container(
+              width: 900.w,
               padding: EdgeInsets.fromLTRB(60.w, 0.h, 0.w, 15.h),
               alignment: Alignment.centerLeft,
               child: Text(
