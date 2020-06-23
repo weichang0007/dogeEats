@@ -70,6 +70,7 @@ class DogeEatsAppState extends State<DogeEatsApp> {
   );
 
   final coustomerApp = MaterialApp(
+    debugShowCheckedModeBanner: false,
     title: 'DogeEats',
     theme: theme,
     onGenerateRoute: (settings) {
@@ -129,6 +130,7 @@ class DogeEatsAppState extends State<DogeEatsApp> {
   );
 
   final deliveryPersonApp = MaterialApp(
+    debugShowCheckedModeBanner: false,
     title: 'DogeEats - DeliveryMode',
     theme: theme,
     onGenerateRoute: (settings) {

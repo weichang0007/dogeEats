@@ -25,7 +25,7 @@ class _OrderListPageState extends State<OrderListPage> {
             labelStyle: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.bold),
             unselectedLabelColor: Colors.grey[350],
             labelColor: Colors.grey[800],
-            tabs: [Tab(text: "即將抵達"), Tab(text: "過去的訂單")],
+            tabs: [Tab(text: "目前的訂單"), Tab(text: "所有的訂單")],
             indicatorColor: Colors.grey[800],
           ),
         ),
@@ -37,14 +37,10 @@ class _OrderListPageState extends State<OrderListPage> {
   }
 
   Widget _buildHistoryPage(BuildContext context) {
-    return Center();
+    return OrderAllInfoCard();
   }
 
   Widget _buildCurrentPage(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        OrderInfoCard(),
-      ],
-    );
+    return OrderInfoCard();
   }
 }

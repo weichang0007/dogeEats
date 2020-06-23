@@ -20,9 +20,9 @@ class _IndexFavoriteState extends State<IndexFavorite> {
     } catch (e) {}
   }
 
-  FutureBuilder<List<RestaurantCard>> _buildFutureBuilder() {
-    return FutureBuilder<List<RestaurantCard>>(
-      builder: (context, AsyncSnapshot<List<RestaurantCard>> async) {
+  FutureBuilder<List<Widget>> _buildFutureBuilder() {
+    return FutureBuilder<List<Widget>>(
+      builder: (context, AsyncSnapshot<List<Widget>> async) {
         if (async.connectionState == ConnectionState.active ||
             async.connectionState == ConnectionState.waiting) {
           return Container(
@@ -31,7 +31,7 @@ class _IndexFavoriteState extends State<IndexFavorite> {
           );
         } else if (async.connectionState == ConnectionState.done) {
           if (async.hasData) {
-            List<RestaurantCard> list = async.data;
+            List<Widget> list = async.data;
             return Container(
               padding: EdgeInsets.only(left: 15.w),
               child: RefreshIndicator(
@@ -62,7 +62,7 @@ class _IndexFavoriteState extends State<IndexFavorite> {
     );
   }
 
-  Widget _buildListView(BuildContext context, List<RestaurantCard> list) {
+  Widget _buildListView(BuildContext context, List<Widget> list) {
     if (list.length == 0)
       return Container(
         height: 1000.h,
@@ -83,22 +83,35 @@ class _IndexFavoriteState extends State<IndexFavorite> {
     );
   }
 
-  Future<List<RestaurantCard>> getdata() async {
+  Future<List<Widget>> getdata() async {
     try {
       String baseUrl = HttpService.baseUrl;
       Response response =
           await _http.getJsonData("$baseUrl/restaurant/favorites");
       List jsonList = response.data;
       if (jsonList.length == 0) return [];
-      List<RestaurantCard> result = [];
+      List<Widget> result = [];
       for (var item in jsonList)
-        result.add(RestaurantParser.fromJson(
-          json.encode(item['restaurant']),
-          700.w,
-          1000.h,
-          true,
-          onLikeChecged,
-        ));
+        result.add(
+          InkWell(
+            child: RestaurantParser.fromJson(
+              json.encode(item['restaurant']),
+              700.w,
+              1000.h,
+              true,
+              onLikeChecged,
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      RestaurantPage(id: item['restaurant_id'].toString()),
+                ),
+              );
+            },
+          ),
+        );
       return result;
     } catch (e) {
       Setting setting = await Setting.instance;

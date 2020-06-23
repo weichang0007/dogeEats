@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
-class OrderInfoCard extends StatefulWidget {
+class OrderAllInfoCard extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _OrderInfoCardState();
+  State<StatefulWidget> createState() => _OrderAllInfoCardState();
 }
 
-class _OrderInfoCardState extends State<OrderInfoCard> {
+class _OrderAllInfoCardState extends State<OrderAllInfoCard> {
   Future future;
   HttpService _http = HttpService.instance;
   final String _baseUrl = HttpService.baseUrl;
@@ -24,7 +24,7 @@ class _OrderInfoCardState extends State<OrderInfoCard> {
   Future<List<Widget>> getdata() async {
     try {
       List<Widget> result = [];
-      List orders = (await _http.getJsonData("$_baseUrl/order/current")).data;
+      List orders = (await _http.getJsonData("$_baseUrl/orders")).data;
       for (var order in orders) {
         int total = 0;
         List<Widget> detailWidget = [];
