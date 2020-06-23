@@ -25,6 +25,7 @@ class _OrderAllInfoCardState extends State<OrderAllInfoCard> {
     try {
       List<Widget> result = [];
       List orders = (await _http.getJsonData("$_baseUrl/orders")).data;
+      List restaurant = (await _http.getJsonData("$_baseUrl/restaurants")).data;
       for (var order in orders) {
         int total = 0;
         List<Widget> detailWidget = [];
@@ -36,6 +37,8 @@ class _OrderAllInfoCardState extends State<OrderAllInfoCard> {
           ]);
           total += detail['count'] * detail['product']['price'];
         }
+        Map rest = restaurant
+            .firstWhere((element) => element['id'] == order['restaurant_id']);
         result.add(Container(
           margin: EdgeInsets.only(bottom: 30.h),
           padding: EdgeInsets.only(top: 50.h, left: 35.w, right: 35.w),
@@ -48,7 +51,7 @@ class _OrderAllInfoCardState extends State<OrderAllInfoCard> {
                     child: FadeInImage.assetNetwork(
                       fit: BoxFit.fitWidth,
                       placeholder: "assets/images/image_unavailable.png",
-                      image:
+                      image: rest['img_url'] ??
                           "https://visualsound.com/wp-content/uploads/2019/05/unavailable-image.jpg",
                     ),
                   ),
