@@ -203,7 +203,7 @@ class _RestaurantPageState extends State<RestaurantPage>
                         background: FadeInImage.memoryNetwork(
                           fit: BoxFit.cover,
                           placeholder: kTransparentImage,
-                          image:
+                          image: map['img_url'] ??
                               "https://visualsound.com/wp-content/uploads/2019/05/unavailable-image.jpg",
                         ),
                       ),
