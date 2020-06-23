@@ -69,8 +69,7 @@ class _RestaurantCardState extends State<RestaurantCard> {
             child: FadeInImage.memoryNetwork(
               fit: BoxFit.cover,
               placeholder: kTransparentImage,
-              image:
-                  "https://visualsound.com/wp-content/uploads/2019/05/unavailable-image.jpg",
+              image: widget.url,
             ),
           ),
           Container(
