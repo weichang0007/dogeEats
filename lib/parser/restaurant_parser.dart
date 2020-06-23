@@ -23,7 +23,7 @@ class RestaurantParser {
     Map jsonMap = json.decode(jsonString);
     return RestaurantCard(
       id: jsonMap['id'],
-      url:
+      url: jsonMap['img_url'] ??
           "https://visualsound.com/wp-content/uploads/2019/05/unavailable-image.jpg",
       name: jsonMap['name'],
       address: jsonMap['address'],
